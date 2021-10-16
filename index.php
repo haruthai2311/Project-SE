@@ -65,6 +65,7 @@
           <div class="text-content">
             <h4>WELCOME TO</h4>
             <h2>PP HOME WEBSITE</h2>
+            <h3>ยินดีต้อนรับเข้าสู่เว็บไซต์หอพักพีพีโฮม</h3>
           </div>
         </div>
       </div>
