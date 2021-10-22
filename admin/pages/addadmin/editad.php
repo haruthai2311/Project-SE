@@ -200,7 +200,14 @@
                   
                   <form  method="post" action="functionadm.php">
                  
-			          
+                  <div class="row justify-content-md-center">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label>ID</label>
+                          <input type="text" class="form-control" name="userid"  readonly value="<?php echo $_SESSION['USER']['userid']; ?>">
+                        </div>
+                      </div>
+                    </div>
                     
                     <div class="row justify-content-md-center">
                       <div class="col-md-5">
@@ -243,9 +250,9 @@
                    
                     <div class="text-center">
                     <button type="submit" class="btn btn-primary mr-2" name="editadm" id="save">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-light">Cancel</button>
-                    </div> -->
+                    <button class="btn btn-danger" name="deletead" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">Delete</button>
+                    <button class="btn btn-light" name="canceledit">Cancel</button>
+                    </div>
                     
                   </form>
                 </div>

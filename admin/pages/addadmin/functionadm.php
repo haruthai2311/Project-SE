@@ -8,7 +8,9 @@ $errors = array();
 if (isset($_POST['addadm'])) {
 	adduser();
 }
-
+if (isset($_POST['editadm'])) {
+	edituser();
+}
 function adduser(){
 	// call these variables with the global keyword to make them available in function
 	global $con, $errors ;
@@ -77,11 +79,10 @@ function e($val){
 	return mysqli_real_escape_string($con, trim($val));
 }
 
-if (isset($_POST['editadm'])) {
-	edituser();
-}
+
  function edituser(){
 	global $con, $errors ;
+	$userid = e($_POST['userid']);
 	$username    =  e($_POST['username']);
 	$name       =  e($_POST['name']);
 	$password_1  = e($_POST['password1']);
@@ -121,8 +122,8 @@ if (isset($_POST['editadm'])) {
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
         $password = $password_1;
-		 // database insert SQL code
-		$query = "UPDATE `user` SET `name` = '$name' ,`username` = '$username',`password` = '$password'";
+		 // database insert SQL code UPDATE `user` SET `username` = 'Admin23' WHERE `user`.`userid` = 2;
+		$query = "UPDATE `user` SET `name` = '$name' ,`username` = '$username',`password` = '$password' WHERE `user`.`userid` = '$userid' ";
         $rs = mysqli_query($con, $query) or  (mysqli_error($con));
         if($rs){
 		echo "<script type='text/javascript'>";
@@ -134,7 +135,15 @@ if (isset($_POST['editadm'])) {
 	}
 }
 if (isset($_POST['canceledit'])) {
-    header("location:infooccupant.php");
+    header("location:editad.php");
     exit(0);
+}
+if (isset($_POST['deletead'])) {
+		$userid = e($_POST['userid']);
+    	$delete="DELETE FROM user WHERE userid =$userid";
+    	$result=mysqli_query($con,$delete);
+    	header("location:../../../index.php");
+    	exit(0);
+	
 }
 ?>
