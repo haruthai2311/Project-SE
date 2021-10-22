@@ -77,6 +77,64 @@ function e($val){
 	return mysqli_real_escape_string($con, trim($val));
 }
 
+if (isset($_POST['editadm'])) {
+	edituser();
+}
+ function edituser(){
+	global $con, $errors ;
+	$username    =  e($_POST['username']);
+	$name       =  e($_POST['name']);
+	$password_1  = e($_POST['password1']);
+	$password_2  =  e($_POST['password2']);
+   
+	if(trim($_POST["username"]) == ""){
+		echo "<script type='text/javascript'>";
+        echo "alert('Please input Username!');";
+        echo "window.location = 'editad.php'; ";
+        echo "</script>";
+	}
+	if(trim($_POST["password1"]) == "")
+	{
+		echo "<script type='text/javascript'>";
+        echo "alert('Please input Password!');";
+        echo "window.location = 'editad.php'; ";
+        echo "</script>";
+		
+	}  
+	if($_POST["password1"] != $_POST["password2"])
+	{
+		echo "<script type='text/javascript'>";
+        echo "alert('Password not Match!');";
+        echo "window.location = 'editad.php'; ";
+        echo "</script>";
+	}
+	
+	if(trim($_POST["name"]) == "")
+	{
+		echo "<script type='text/javascript'>";
+        echo "alert(''Please input name!');";
+        echo "window.location = 'editad.php'; ";
+        echo "</script>";
+	
+	}  
 
-
+	// register user if there are no errors in the form
+	if (count($errors) == 0) {
+        $password = $password_1;
+		 // database insert SQL code
+		$query = "UPDATE `user` SET `name` = '$name' ,`username` = '$username',`password` = '$password'";
+        $rs = mysqli_query($con, $query) or  (mysqli_error($con));
+        if($rs){
+		echo "<script type='text/javascript'>";
+        echo "alert('แก้ไขข้อมูลเรียบร้อยแล้ว');";
+        echo "window.location = 'editad.php'; ";
+        echo "</script>"; }
+			
+		
+	}
+}
+if (isset($_POST['canceledit'])) {
+    header("location:infooccupant.php");
+    exit(0);
+}
 ?>

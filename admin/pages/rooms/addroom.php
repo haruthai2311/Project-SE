@@ -183,8 +183,9 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/editad.php">ข้อมูลบัญชี</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/addad.php">เพิ่มบัญชี</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/editad.php">แก้ไขบัญชี</a></li>
+                
               </ul>
             </div>
           </li>

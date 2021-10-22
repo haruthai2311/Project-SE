@@ -181,8 +181,9 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/editad.php">ข้อมูลบัญชี</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/addad.php">เพิ่มบัญชี</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/editad.php">แก้ไขบัญชี</a></li>
+                
               </ul>
             </div>
           </li>
@@ -191,7 +192,7 @@
       <!-- partial -->
       <div class="main-panel">        
         <div class="content-wrapper">
-          <!-- <div class="row">
+        <div class="row">
             <div class="col-12 grid-margin">
               <div class="card ">
                 <div class="card-body">
@@ -241,7 +242,7 @@
 
                    
                     <div class="text-center">
-                    <button type="submit" class="btn btn-primary mr-2" name="addadm" id="save">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
+                    <button type="submit" class="btn btn-primary mr-2" name="editadm" id="save">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
                     <button class="btn btn-danger">Delete</button>
                     <button class="btn btn-light">Cancel</button>
                     </div> -->
