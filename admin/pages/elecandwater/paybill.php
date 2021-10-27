@@ -195,34 +195,58 @@
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
                 </div>
-               <?php
-                include 'db.php';
+               <!--// < ? php session_start(); ?> -->
+<?php
+  include 'db.php';
+$id_room =$_REQUEST['id'];
 
-                $result = mysqli_query($conn,"SELECT * FROM occupant INNER JOIN rooms ON occupant.id_room=rooms.id_room");
+$result = mysqli_query($conn,"SELECT * FROM occupant INNER JOIN rooms ON occupant.id_room=rooms.id_room WHERE rooms.id_room =  '$id_room'");
+$test = mysqli_fetch_array($result);
+if (!$result) 
+		{
+		die("Error: Data not found..");
+		}
+				$id_ocp=$test['id_ocp'] ;
+				$name_ocp= $test['name_ocp'] ;					
+				$last_ocp=$test['last_ocp'] ;
+				$phone_ocp=$test['phone_ocp'] ;
+				$id_mtw=$test['id_mtw'] ;
+				$id_mte=$test['id_mte'] ;
 
-                echo "<table class=\"table\" >
-                <tr>
-                  <th>หมายเลขห้อง</th>
-                  <th>ผู้เช่า</th>
-                  <th>เลขมิเตอร์ไฟฟ้า</th>
-                  <th>เลขมิเตอร์น้ำประปา</th>
-                  <th>Action</th>
-                </tr>";
+$q = mysqli_query($conn,"select prevw,preve from tempo_bill where name_ocp = '$name_ocp'");
+$results = mysqli_fetch_array($q);
+$previousw = $results['prevw'];
+$previouse = $results['preve'];
+?>
 
-                while($row = mysqli_fetch_array($result))
-                {
-                  echo "<tr>";
-                  echo "<td>" . $row['id_room'] . "</td>";
-                  echo "<td>" . $row['name_ocp'] . "&nbsp;" . $row['last_ocp'] . "</td>";
-                  echo "<td>" . $row['id_mte'] . "</td>";
-                  echo "<td>" . $row['id_mtw'] . "</td>";
-                
-                  echo "<td><a rel='facebox' href='paybill.php?id=".$row['id_room']."'><span class=\"btn btn-info btn-xs glyphicon glyphicon-usd\">&nbsp;&nbsp;สร้างบิล&nbsp;&nbsp;</span> </a>| ";
-                  echo "<a rel='facebox' href='viewbill.php?id=".$row['id_room']."'><span class=\"btn btn-danger  btn-xs glyphicon glyphicon-eye-open\">&nbsp;&nbsp;View&nbsp;&nbsp;</span></td>";
-                  echo "</tr>";
-                }
-                echo "</table>";
-                ?>
+<p><h1>บิลแจ้งชำระค่าไฟฟ้า-น้ำประปา</h1></p>
+ <h1>ชื่อ : <?php echo $name_ocp.'&nbsp;' .$last_ocp.'&nbsp;'.$id_room;?></h1>
+<p><?php $date=date('d/m/y');
+ echo $date;?></p>
+ <form method="post" action="addbill.php">
+ <table width="346" border="1">
+  <tr>
+  <input type="hidden" name="owners_id" value="<?php echo $id; ?>" />
+  <input type="hidden" name="date" value="<?php echo $date; ?>" />
+    <td width="118">Previous Reading:</td>
+    <td width="66"><input type="text" name="prevw"  value="<?php echo $previousw; ?>" /></td>
+    <td width="66"><input type="text" name="preve"  value="<?php echo $previouse; ?>" /></td>
+  </tr>
+  <tr>
+    <td>Present Reading:</td>
+    <td><input type="text" name="presw"  /></td>
+    <td><input type="text" name="prese"  /></td>
+  </tr>
+  <tr>
+    <td>ราคา/หน่วย</td>
+    <td><input type="text" name="price" value="7"  /></td>
+    
+  </tr>
+   <tr>
+    <td><input type="submit" name="total" value="Add"  /></td>
+  </tr>
+</table>
+</form>
 
               
               </div>
