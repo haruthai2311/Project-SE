@@ -290,7 +290,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label>รายละเอียดที่อยู่</label>
-                           <input type="text" class="form-control" name="address1" />
+                          <input type="text" class="form-control" name="address1" />
                         </div>
                       </div>
                       <div class="col-md-5">
