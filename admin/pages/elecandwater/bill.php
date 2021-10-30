@@ -231,7 +231,7 @@
                   //echo '<td><button type="button"  rel="facebox" id="popup" class="btn btn-info btn-xs glyphicon glyphicon-usd" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>สร้างบิล</button>| ';
                   //echo "<a rel='facebox' href='viewbill.php?id=".$row['id_room']."'><span class=\"btn btn-danger  btn-xs glyphicon glyphicon-eye-open\">&nbsp;&nbsp;View&nbsp;&nbsp;</span></td>";
                   //echo '<button type="button" rel="facebox" id="popup" class="btn btn-danger  btn-xs glyphicon glyphicon-eye-open" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>รายละเอียด</button></td>';
-                  echo '<button type="button"  class="btn btn-danger  btn-sm" ></i>รายละเอียด</button></td>';
+                  echo '<button type="button"  data-id="'.$row['id_room'].'" class="btn btn-warning  btn-sm detailbt" ></i>รายละเอียด</button></td>';
 
                   echo "</tr>";
                 }
@@ -268,6 +268,7 @@
 </button>-->
 
 <!-- Modal -->
+<!--################################################ Add Bill ############################################################ -->
 <div class="modal fade" id="billmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -280,15 +281,25 @@
       <div class="modal-body" id="detail">
      
       </div>
-      <div class="modal-footer">
-        
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>          
-      </div>
     </div>
   </div>
 </div>
 
+<!--################################################ Detail Bill ############################################################ -->
+<div class="modal fade bd-example-modal-lg" id="detailbillmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail bill</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="detailbill">
+        
+    </div>
+  </div>
+</div>
   
 
 
@@ -344,6 +355,21 @@ $(document).ready(function(){
     });
      
   });
+
+  $('.detailbt').click(function(){
+    var rid=$(this).attr("data-id");
+    $.ajax({
+      url:"detail.php",
+      method: "post",
+      data:{id:rid},
+      success:function(data){
+        $('#detailbill').html(data);
+        $('#detailbillmodal').modal('show');
+      }
+
+    });
+  });
+  
 });
 </script>
 </body>
