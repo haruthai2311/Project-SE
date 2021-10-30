@@ -44,7 +44,7 @@ while($row = mysqli_fetch_array($result))
  
  
  echo "<td><a rel='facebox' href='viewpayment.php?idin=".$row['id_in']."'>View </a>| ";
- echo "<a rel='facebox' href='delbill.php?idin=".$row['id_in']."'>Del</td>";
+ echo "<a rel='facebox' href='delbill.php?idin=".$row['id_in']."' onclick='return confirm('คุณต้องการลบข้อมูลหรือไม่')'>Del</td>";
   echo "</tr>";
   }
 echo "</table>";
