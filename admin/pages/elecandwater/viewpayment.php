@@ -31,7 +31,9 @@ while($row = mysqli_fetch_array($rs)){
 	$totalE = $prese - $preve;
     $totalW = $presw - $prevw;
 
-    $Consuption = $totalE+$totalW;    
+    $Consuption = $totalE+$totalW;  
+	 
+    $ppu = $price / $Consuption;  
 }
 
 ?>
@@ -58,24 +60,26 @@ function printDiv(data) {
 </style>
 <div id="data">
 <center>
-<h4><center><b>Water Billing System</b></center></h4>
-<p>ESPSN - ESSP</p>
-<p><strong>Bill Invoice</strong></p>
-<p>Phone: +255 (0) 654 235</p>
-<i style="text-align:right; margin-left:250px;">Date: <?php echo $rcdate; ?></i>
+<h2><center><b>บิลค่าไฟฟ้า-ประปา</b></center></h2>
+<p></p>
+<p><strong>หอพักพีพีโฮม สาขาหลังมอ</strong></p>
+<p>199 หมู่ 9 ตำบลเชียงเครือ อำเภอเมือง จังหวัดสกลนคร 47000 </p>
+<p>เบอร์โทรศัพท์ : 08-1399-3024</p>
+<!--<i style="text-align:right; margin-left:250px;">Date: < ?php echo $rcdate; ?></i>-->
 </center>
 <div id="context">
 <table class="table table-striped table-bordered">
-<tr><td>Last Name:</td><td><b><i><?php echo $last_ocp; ?></i></b></td><td>Electric Meter Number</td><td><i>SMART/00<?php echo $id_mte; ?></i></td> </tr>
-<tr><td>First Name</td><td><b><i><?php echo $name_ocp; ?></td><td bordercolor="#000000">Water Meter Number</td><td><?php echo $id_mtw; ?></td></tr>
+<tr><td>วันที่จดบันทึก : </td><td><b><i><?php echo $rcdate; ?></i></b></td><td>ห้องพักเลขที่ :</td><td><b><i><?php echo $id_room; ?></td></tr>
+<tr><td>First Name : </td><td><b><i><?php echo $name_ocp.' '. $last_ocp; ?></td><td bordercolor="#000000">Contact: </td><td><b><i><?php echo $phone_ocp; ?></td></tr>
+<tr><td>Electric Meter Number</td><td><i><?php echo $id_mte; ?></i></td> <td bordercolor="#000000">Water Meter Number</td><td><?php echo $id_mtw; ?></td></tr>
 
 <!-- <tr><td>Address: </td><td><b><i>< ?php echo $address; ? ></td></tr> -->
-<tr><td bordercolor="#000000">Contact: </td><td><b><i><?php echo $phone_ocp; ?></td></tr>
+
 <tr><td bordercolor="#000000">Electric Previous Reading :</td><td><b><i> <?php echo $preve;?> </td><td bordercolor="#000000">Electric Present Reading : </td><td><b><i><?php echo $prese; ?> </td></tr>
 <tr><td bordercolor="#000000">Water Previous Reading :</td><td><b><i> <?php echo $prevw;?> </td><td bordercolor="#000000">Water Present Reading : </td><td><b><i><?php echo $presw; ?> </td></tr>
 
 <tr><td bordercolor="#000000">Consuption: </td><td><b><i><?php echo $Consuption;?> </td><td bordercolor="#000000">Price / unit : </td>
-<td><b><i>7</td>
+<td><b><i><?php echo $ppu;?> </td>
 </tr>
 <tr><td colspan="4"><center><h2>Total Invoice:<b><i> <?php echo $price; ?><b><i></h2></center></td></tr>
 

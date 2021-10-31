@@ -33,18 +33,19 @@ while($row = mysqli_fetch_array($result))
     $prese = $row['prese'];
     $totalE = $prese - $preve;
     $totalW = $presw - $prevw;
-
+    $inprice = $row['inprice'];
     $Consuption = $totalE+$totalW;    
+    $ppu = $inprice / $Consuption;
   echo "<tr>";
   echo "<td>" . $row['id_in'] . "</td>";
   echo "<td>" . $row['rcdate'] . "</td>";
   echo "<td>". $Consuption."</td>";
-  echo "<td>7</td>";
-  echo "<td>". $row['inprice']."</td>";
+  echo "<td>".$ppu."</td>";
+  echo "<td>".$inprice."</td>";
  
  
  echo "<td><a rel='facebox' href='viewpayment.php?idin=".$row['id_in']."'>View </a>| ";
- echo "<a rel='facebox' href='delbill.php?idin=".$row['id_in']."' onclick='return confirm('คุณต้องการลบข้อมูลหรือไม่')'>Del</td>";
+ echo "<a rel='facebox' href='delbill.php?idin=".$row['id_in']."' onclick='return confirm('คุณต้องการลบข้อมูลหรือไม่')'>Del</td>"; //ยังไม่ขึ้นให้ยืนยันการลบ
   echo "</tr>";
   }
 echo "</table>";
