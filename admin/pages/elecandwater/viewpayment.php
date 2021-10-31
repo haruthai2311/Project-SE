@@ -8,7 +8,7 @@ if(!isset($_SESSION['idin'])){
 include 'db.php';
 
 $id =$_REQUEST['idin'];
-echo $id;
+
 $sql = "SELECT * FROM ((invoices INNER JOIN occupant ON invoices.id_room=occupant.id_room INNER JOIN rooms ON rooms.id_room = invoices.id_room)) WHERE id_in = '$id'";
 $rs = mysqli_query($conn, $sql) or  (mysqli_error($conn));
 while($row = mysqli_fetch_array($rs)){
