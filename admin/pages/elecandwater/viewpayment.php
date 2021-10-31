@@ -30,10 +30,13 @@ while($row = mysqli_fetch_array($rs)){
 
 	$totalE = $prese - $preve;
     $totalW = $presw - $prevw;
+	
 
     $Consuption = $totalE+$totalW;  
-	 
     $ppu = $price / $Consuption;  
+	$priceE =  $totalE * $ppu;
+	$priceW = $totalW * $ppu;
+
 }
 
 ?>
@@ -43,6 +46,10 @@ while($row = mysqli_fetch_array($rs)){
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <title>Billing</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
+
 	<script>
 function printDiv(data) {
       var printContents = document.getElementById('data').innerHTML;    
@@ -51,46 +58,120 @@ function printDiv(data) {
    window.print();     
    document.body.innerHTML = originalContents;
    }
+   
+   function fncSum()
+   {
+    var num = '';     var sum = <?php echo $price; ?>;
+	num = document.frmprice['price[]'].value;
+	if(num>=0){
+      sum += parseFloat(num);
+     }
+    
+    document.frmprice.sumprice.value = sum;}
 </script>
+
 </head>
-<body style=" background-size:cover; font-family:'Courier New', Courier;">
-<style type="text/css">
-#data { margin: 0 auto; width:700px; padding:20px; border:#066 thin ridge; height:600px; }
+<body>
+<form name="frmprice" method="POST">
 
-</style>
-<div id="data">
-<center>
-<h2><center><b>บิลค่าไฟฟ้า-ประปา</b></center></h2>
-<p></p>
-<p><strong>หอพักพีพีโฮม สาขาหลังมอ</strong></p>
-<p>199 หมู่ 9 ตำบลเชียงเครือ อำเภอเมือง จังหวัดสกลนคร 47000 </p>
-<p>เบอร์โทรศัพท์ : 08-1399-3024</p>
-<!--<i style="text-align:right; margin-left:250px;">Date: < ?php echo $rcdate; ?></i>-->
-</center>
-<div id="context">
-<table class="table table-striped table-bordered">
-<tr><td>วันที่จดบันทึก : </td><td><b><i><?php echo $rcdate; ?></i></b></td><td>ห้องพักเลขที่ :</td><td><b><i><?php echo $id_room; ?></td></tr>
-<tr><td>First Name : </td><td><b><i><?php echo $name_ocp.' '. $last_ocp; ?></td><td bordercolor="#000000">Contact: </td><td><b><i><?php echo $phone_ocp; ?></td></tr>
-<tr><td>Electric Meter Number</td><td><i><?php echo $id_mte; ?></i></td> <td bordercolor="#000000">Water Meter Number</td><td><?php echo $id_mtw; ?></td></tr>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h5><strong><center>บิลค่าไฟฟ้า-ประปา<center></strong></h3>
+            </div>
+            <div class="card-body">
+               	<center><div class="row mb">
+                    <div class="col-sm">
+                        <h6><strong>หอพักพีพีโฮม สาขาหลังมอ</strong></h6>
+						<div>199 หมู่ 9 ตำบลเชียงเครือ อำเภอเมือง จังหวัดสกลนคร 47000</div>
+						<div>เบอร์โทรศัพท์ : 08-1399-3024</div>
+                    </div>
+                </div></center>
+				<hr>
 
-<!-- <tr><td>Address: </td><td><b><i>< ?php echo $address; ? ></td></tr> -->
-
-<tr><td bordercolor="#000000">Electric Previous Reading :</td><td><b><i> <?php echo $preve;?> </td><td bordercolor="#000000">Electric Present Reading : </td><td><b><i><?php echo $prese; ?> </td></tr>
-<tr><td bordercolor="#000000">Water Previous Reading :</td><td><b><i> <?php echo $prevw;?> </td><td bordercolor="#000000">Water Present Reading : </td><td><b><i><?php echo $presw; ?> </td></tr>
-
-<tr><td bordercolor="#000000">Consuption: </td><td><b><i><?php echo $Consuption;?> </td><td bordercolor="#000000">Price / unit : </td>
-<td><b><i><?php echo $ppu;?> </td>
-</tr>
-<tr><td colspan="4"><center><h2>Total Invoice:<b><i> <?php echo $price; ?><b><i></h2></center></td></tr>
-
- 
-</table>
-
-
-
-</div>
-</div>
-<CENTER><button type="button"  class="btn btn-default " onclick="printDiv(data)"><span
-class=" glyphicon glyphicon-print"></span>&nbsp;Print Bill</button>&nbsp;<a href="bill.php"><button class="btn btn-danger"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Go back</button></a></CENTER>
+				<div class="row mb-4">
+                    <div class="col-sm-6">
+                        <strong><h7 class="mb-3">ห้องพักหมายเลข : <?php echo $id_room; ?> </h7></strong>
+                        <div>เลขมิเตอร์ไฟฟ้า : <?php echo $id_mte; ?></div>
+                        <div>เลขมิเตอร์น้ำ : <?php echo $id_mtw; ?></div>
+                    </div>
+					<div class="col-sm-6">
+                        <h7 class="mb-3">ชื่อ : <?php echo $name_ocp.' '. $last_ocp; ?></h7>
+                        <div>เบอร์โทรศัพท์ : <?php echo $phone_ocp; ?></div>
+                       
+                    </div>
+                </div>
+				<strong><div>วันที่ <?php echo $rcdate; ?></div></strong>
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center">รายการ</th>
+                                <th style="text-align:center">มิเตอร์ที่อ่านได้ปัจจุบัน</th>
+                                <th style="text-align:center">มิเตอร์ที่อ่านได้ก่อนหน้า</th>
+                                <th style="text-align:center">จำนวนที่ใช้</th>
+                                <th style="text-align:center">รวม</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">ค่าไฟฟ้า</td>
+                                <td style="text-align:center"><?php echo $prese; ?></td>
+                                <td style="text-align:center"><?php echo $preve;?></td>
+                                <td style="text-align:center"><?php echo $totalE;?></td>
+                                <td style="text-align:center"><?php echo $priceE;?></td>
+                            </tr>
+                            <tr>
+                                <td class="center">ค่าน้ำประปา</td>
+                                <td style="text-align:center"><?php echo $presw; ?></td>
+                                <td style="text-align:center"><?php echo $prevw;?> </td>
+                                <td style="text-align:center"><?php echo $totalW;?> </td>
+                                <td style="text-align:center"><?php echo $priceW;?></td>
+                            </tr>
+							
+                          
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                    </div>
+                    <div class="col-lg-5 col-sm-5 ml-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="left">
+                                        <strong>รวมเป็นเงิน</strong>
+                                    </td>
+                                    <td class="right"><?php echo $price; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="left" >
+                                        <h6><strong>ค่าอินเทอร์เน็ต</strong></h6>
+                                    </td>
+                                    <td class="right"><input type="text" class="border-0" value="0"  name="price[]" id="price[]" onkeyup="fncSum();"/></td>
+                                </tr>
+								<!--tr>
+                                    <td class="left" >
+                                        <h6><strong>อื่นๆ</strong></h6>
+                                    </td>
+                                    <td class="right"><input type="text" class="border-0" name="other" value="0"/></td>
+                                </tr-->
+                                <tr>
+                                    <td class="left">
+                                        <strong>รวมทั้งสิ้น</strong>
+                                    </td>
+                                    <td class="right">
+                                        <strong><strong><input type="text" name="sumprice" readonly class="border-0" value="<?php echo $price; ?>"></strong></strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>
