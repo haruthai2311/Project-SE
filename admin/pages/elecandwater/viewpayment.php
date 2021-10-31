@@ -51,14 +51,14 @@ while($row = mysqli_fetch_array($rs)){
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
 
 	<script>
-function printDiv(data) {
-      var printContents = document.getElementById('data').innerHTML;    
-   var originalContents = document.body.innerHTML;      
-   document.body.innerHTML = printContents;     
-   window.print();     
-   document.body.innerHTML = originalContents;
+	function printDiv(data) {
+      	var printContents = document.getElementById('data').innerHTML;    
+   		var originalContents = document.body.innerHTML;      
+   		document.body.innerHTML = printContents;     
+   		window.print();     
+   		document.body.innerHTML = originalContents;
    }
-   
+ 
    function fncSum()
    {
     var num = '';     var sum = <?php echo $price; ?>;
@@ -72,7 +72,7 @@ function printDiv(data) {
 
 </head>
 <body>
-<form name="frmprice" method="POST">
+<form id="data" name="frmprice" method="POST">
 
     <div class="container">
         <div class="card">
@@ -172,6 +172,11 @@ function printDiv(data) {
             </div>
         </div>
     </div>
+	
 </form>
+
+<div><CENTER><button type="button"  class="btn btn-default " onclick="printDiv(data)"><span class=" glyphicon glyphicon-print"></span>&nbsp;Print Bill</button>&nbsp;&nbsp;&nbsp;<a href="bill.php"><button class="btn btn-danger"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Go back</button></a></CENTER>
+	</div>
+</div>
 </body>
 </html>
