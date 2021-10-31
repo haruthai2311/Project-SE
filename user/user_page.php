@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>PP-Home</title>
 	<link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
