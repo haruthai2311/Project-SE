@@ -47,8 +47,8 @@ while($row = mysqli_fetch_array($result))
  ?>
 
  
-  <td><a rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>View </a>|
-  <a rel='facebox' href='delbill.php?idin=<?php echo $row["id_in"];?>' onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">Del</td>
+  <td><a rel='facebox' href='viewpaymentroom.php?id=<?php echo $row['id_inroom']; ?>'>View </a>|
+  <a rel='facebox' href='delbillrent.php?id=<?php echo $row["id_inroom"];?>' onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">Del</td>
   <?php echo "</tr>";
   }
 echo "</table></div>";
