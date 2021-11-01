@@ -206,7 +206,7 @@
                     <div class="row justify-content-md-center" >
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label">หมายเลขห้องพัก :</label>
+                          <label>หมายเลขห้องพัก :</label>
                           
                             <input type="text" class="form-control" name="id_room" id="id_room" required 
                              oninvalid="this.setCustomValidity('กรุณาระบุหมายเลขห้อง')"
