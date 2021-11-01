@@ -15,14 +15,15 @@ $conn = mysqli_connect('localhost', 'root', '','datahome') or die("Error: " . my
 $result = mysqli_query($conn,"SELECT * FROM `invoices` WHERE id_room = '$id'");
 
 
-echo "<table class=\"table table-striped table-hover table-bordered\">
+echo "<div class='table-responsive'>
+<table class=\"table table-striped table-hover table-bordered\">
 <tr>
-<th>Id</th>
-<th>Date</th>
-<th>Consuption</th>
-<th>Price/Unit</th>
-<th>Bill Amount</th>
-<th>Action</th>
+<th>บิลเลขที่</th>
+<th>วันที่</th>
+<th>จำนวนไฟฟ้า-ประปาที่ใช้</th>
+<th>ราคา/หน่วย</th>
+<th>รวมทั้งหมด</th>
+<th> </th>
 </tr>";
 
 while($row = mysqli_fetch_array($result))
@@ -42,13 +43,14 @@ while($row = mysqli_fetch_array($result))
   echo "<td>". $Consuption."</td>";
   echo "<td>".$ppu."</td>";
   echo "<td>".$inprice."</td>";
+ ?>
+
  
- 
- echo "<td><a rel='facebox' href='viewpayment.php?idin=".$row['id_in']."'>View </a>| ";
- echo "<a rel='facebox' href='delbill.php?idin=".$row['id_in']."' onclick='return confirm('คุณต้องการลบข้อมูลหรือไม่')'>Del</td>"; //ยังไม่ขึ้นให้ยืนยันการลบ
-  echo "</tr>";
+  <td><a rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>View </a>|
+  <a rel='facebox' href='delbill.php?idin=<?php echo $row["id_in"];?>' onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">Del</td>
+  <?php echo "</tr>";
   }
-echo "</table>";
+echo "</table></div>";
 
 ?>
 </body>

@@ -204,7 +204,9 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label>ID</label>
+                          
                           <input type="text" class="form-control" name="userid"  readonly value="<?php echo $_SESSION['USER']['userid']; ?>">
+
                         </div>
                       </div>
                     </div>

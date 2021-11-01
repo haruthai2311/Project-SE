@@ -169,12 +169,17 @@ while($row = mysqli_fetch_array($rs)){
                         </table>
                     </div>
                 </div>
+                <h6><div><u>หมายเหตุ</u></div></h6>
+                <div>1.สามารถโอนเงินเข้าบัญชี กรุงไทย สาขาสกลนคร ที่ <strong class="text-danger">หมายเลขบัญชี <u>412-194-5514</u> ชื่อบัญชี เพิ่มพล กุดจอมศรี </strong> </div>
+                <div>2.กรุณาชำระค่าน้ำ-ไฟฟ้า-อินเทอร์เน็ต ภายใน 7 วันที่ได้รับใบเรียกเก็บ ภายหลัง 7 วัน ปรับวันละ 10 บาท</div>
+                <div>3.กรุณาดูแลความสะอาดหน้าห้องและหลังห้องพัก หากสกปรกทางหอพักจะดำเนินการจัดเก็บให้ โดยจะคิดค่าบริการเก็บขยะในใบเรียกเก็บเดือนถัดไป</div>
+                <div>4.เบอร์โทรติดต่อในกรณีฉุกเฉิน 08-1399-3024,083-982-1044(พี่สงค์),08-4566-3865</div>
             </div>
         </div>
     </div>
 	
 </form>
-
+<br>
 <div><CENTER><button type="button"  class="btn btn-default " onclick="printDiv(data)"><span class=" glyphicon glyphicon-print"></span>&nbsp;Print Bill</button>&nbsp;&nbsp;&nbsp;<a href="bill.php"><button class="btn btn-danger"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Go back</button></a></CENTER>
 	</div>
 </div>

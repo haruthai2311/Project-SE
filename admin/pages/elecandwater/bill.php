@@ -197,7 +197,7 @@
         <div class="content-wrapper">
           <div class="card ">
          
-           
+          <div class='table-responsive'>
             <div class="card-body">
               <h1><center><b> Billing </b></center></h1>
               <div class="panel panel-info">
@@ -226,7 +226,7 @@
                   echo "<td>" . $row['id_mte'] . "</td>";
                   echo "<td>" . $row['id_mtw'] . "</td>";
                   //<button type="button" id="popup" class="btn btn-primary mb-3" data-overlay="true" data-href="contact-us.html" data-content="ajax"><i class="fa fa-fw fa-file-alt"></i> CLICK HERE AJAX</button>
-                  echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>Bill</button>|";
+                  echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>สร้างบิล</button>|";
                   //echo "<td><a  id='popup' data-overlay='true' data-href='paybill.php?id=".$row['id_room']."' data-content='ajax' ><span class=\"btn btn-info btn-xs glyphicon glyphicon-usd\">&nbsp;&nbsp;สร้างบิล&nbsp;&nbsp;</span> </a>| ";
                   //echo '<td><button type="button"  rel="facebox" id="popup" class="btn btn-info btn-xs glyphicon glyphicon-usd" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>สร้างบิล</button>| ';
                   //echo "<a rel='facebox' href='viewbill.php?id=".$row['id_room']."'><span class=\"btn btn-danger  btn-xs glyphicon glyphicon-eye-open\">&nbsp;&nbsp;View&nbsp;&nbsp;</span></td>";
@@ -241,6 +241,7 @@
                 
               </div>
            </div>
+          </div>
          </div>
         </div>
       </div>

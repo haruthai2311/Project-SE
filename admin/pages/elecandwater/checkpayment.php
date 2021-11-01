@@ -186,7 +186,18 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+          <div class="card ">
          
+          <div class='table-responsive'>
+            <div class="card-body">
+              opdjarguiheruijagdlkl;ghauierrhajajguluharhjnjk
+               
+           </div>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
