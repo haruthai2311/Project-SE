@@ -6,6 +6,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PP-Home</title>
+  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/lightweightpopup.css" type="text/css">-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -20,6 +24,8 @@
 </head>
 
 <body>
+
+
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -147,8 +153,8 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ทำบิล</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">ตรวจสอบการชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ตรวจสอบและชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">สถานะการชำระ</a></li>
               </ul>
             </div>
           </li>
@@ -166,13 +172,63 @@
           </li>
         </ul>
       </nav>
+
+     
+
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <form method="post" action="import_file.php" enctype="multipart/form-data">
-            <input type="file" name="file"/>
-            <input type="submit" name="submit_file" value="Submit"/>
-          </form>
+          <div class="card ">
+         
+          <div class='table-responsive'>
+            <div class="card-body">
+              <h1><center><b> Billing </b></center></h1>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <div class="panel-title"><h5></h5></div>
+                </div>
+               <?php
+                include 'db.php';
+
+                $result = mysqli_query($conn,"SELECT * FROM occupant INNER JOIN rooms ON occupant.id_room=rooms.id_room");
+
+                echo "<table class=\"table\" >
+                <tr>
+                  <th>หมายเลขห้อง</th>
+                  <th>ผู้เช่า</th>
+                  <th>เลขมิเตอร์ไฟฟ้า</th>
+                  <th>เลขมิเตอร์น้ำประปา</th>
+                  <th>Action</th>
+                </tr>";
+
+                while($row = mysqli_fetch_array($result))
+                {
+                  echo "<tr>";
+                  echo "<td>" . $row['id_room'] . "</td>";
+                  echo "<td>" . $row['name_ocp'] . "&nbsp;" . $row['last_ocp'] . "</td>";
+                  echo "<td>" . $row['id_mte'] . "</td>";
+                  echo "<td>" . $row['id_mtw'] . "</td>";
+                  //<button type="button" id="popup" class="btn btn-primary mb-3" data-overlay="true" data-href="contact-us.html" data-content="ajax"><i class="fa fa-fw fa-file-alt"></i> CLICK HERE AJAX</button>
+                  echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>สร้างบิล</button>|";
+                  //echo "<td><a  id='popup' data-overlay='true' data-href='paybill.php?id=".$row['id_room']."' data-content='ajax' ><span class=\"btn btn-info btn-xs glyphicon glyphicon-usd\">&nbsp;&nbsp;สร้างบิล&nbsp;&nbsp;</span> </a>| ";
+                  //echo '<td><button type="button"  rel="facebox" id="popup" class="btn btn-info btn-xs glyphicon glyphicon-usd" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>สร้างบิล</button>| ';
+                  //echo "<a rel='facebox' href='viewbill.php?id=".$row['id_room']."'><span class=\"btn btn-danger  btn-xs glyphicon glyphicon-eye-open\">&nbsp;&nbsp;View&nbsp;&nbsp;</span></td>";
+                  //echo '<button type="button" rel="facebox" id="popup" class="btn btn-danger  btn-xs glyphicon glyphicon-eye-open" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>รายละเอียด</button></td>';
+                  echo '<button type="button"  data-id="'.$row['id_room'].'" class="btn btn-warning  btn-sm detailbt" ></i>รายละเอียด</button></td>';
+
+                  echo "</tr>";
+                }
+                echo "</table>";
+                ?>
+             
+                
+              </div>
+           </div>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
@@ -190,6 +246,48 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>-->
+
+<!-- Modal -->
+<!--################################################ Add Bill ############################################################ -->
+<div class="modal fade" id="billmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">bill</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="detail">
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--################################################ Detail Bill ############################################################ -->
+<div class="modal fade bd-example-modal-lg" id="detailbillmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail bill</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="detailbill">
+        
+    </div>
+  </div>
+</div>
+  
+
+
+
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
@@ -205,6 +303,59 @@
   <!-- Custom js for this page-->
   <script src="../../js/chart.js"></script>
   <!-- End custom js for this page-->
+  
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src="js/lightWeightPopup.js?9875422"></script>
+	<script>
+$(document).ready(function(e) {
+	$('#popup').lightWeightPopup({
+  
+    overlay:true,
+     width:'90%', 
+     maxWidth:'600px', 
+     title:'Ajax Model'
+  });
+
+});
+	</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('.billbt').click(function(){
+    var rid=$(this).attr("data-id");
+    $.ajax({
+      url:"select.php",
+      method: "post",
+      data:{id:rid},
+      success:function(data){
+        $('#detail').html(data);
+        $('#billmodal').modal('show');
+      }
+
+    });
+     
+  });
+
+  $('.detailbt').click(function(){
+    var rid=$(this).attr("data-id");
+    $.ajax({
+      url:"detail.php",
+      method: "post",
+      data:{id:rid},
+      success:function(data){
+        $('#detailbill').html(data);
+        $('#detailbillmodal').modal('show');
+      }
+
+    });
+  });
+  
+});
+</script>
 </body>
 
 </html>

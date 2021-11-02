@@ -147,8 +147,8 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ทำบิล</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">ตรวจสอบการชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ตรวจสอบและชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">สถานะการชำระ</a></li>
               </ul>
             </div>
           </li>

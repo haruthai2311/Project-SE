@@ -15,7 +15,7 @@ $row=mysqli_fetch_assoc($result);
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Admin</title>
+  <title>PP-Home</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -111,7 +111,7 @@ $row=mysqli_fetch_assoc($result);
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="../../admin.php">
+            <a class="nav-link" href="../../user_page.php">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">หน้าหลัก</span>
             </a>
@@ -125,8 +125,6 @@ $row=mysqli_fetch_assoc($result);
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="../../pages/rooms/infomation.php">ข้อมูลห้อง</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/rooms/editinfo.php">แก้ไข/ลบข้อมูล</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/rooms/addroom.php">เพิ่มห้องพัก</a></li>
               </ul>
             </div>
           </li>
@@ -139,7 +137,6 @@ $row=mysqli_fetch_assoc($result);
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="../../pages/occupant/infooccupant.php||../../pages/occupant/editoccupant.php">ข้อมูลผู้เช่า</a></li>
-                <li class="nav-item"><a class="nav-link" href="../../pages/occupant/addoccupant.php">เพิ่มผู้เช่า</a></li>
               </ul>
             </div>
           </li>
@@ -151,8 +148,8 @@ $row=mysqli_fetch_assoc($result);
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/bill.php">ทำบิล</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/checkpayment.php">ตรวจสอบการชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/bill.php">ตรวจสอบและชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/checkpayment.php">สถานะการชำระ</a></li>
               </ul>
             </div>
           </li>
@@ -164,34 +161,20 @@ $row=mysqli_fetch_assoc($result);
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ทำบิล</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">ตรวจสอบการชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ตรวจสอบและชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">สถานะการชำระ</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">การแจ้งซ่อม</span>
+              <span class="menu-title">ซ่อม/บำรุง</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/repairnotice/checkrepair.php">ตรวจสอบการแจ้ง</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
-              <span class="menu-title">บัญชีผู้ดูแลระบบ</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/editad.php">ข้อมูลบัญชี</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/addadmin/addad.php">เพิ่มบัญชี</a></li>
-               
+                <li class="nav-item"> <a class="nav-link" href="../../pages/repairnotice/checkrepair.php">แจ้งปัญหา</a></li>
               </ul>
             </div>
           </li>
