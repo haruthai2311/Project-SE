@@ -23,6 +23,7 @@ echo "<div class='table-responsive'>
 <th>จำนวนไฟฟ้า-ประปาที่ใช้</th>
 <th>ราคา/หน่วย</th>
 <th>รวมทั้งหมด</th>
+<th>สถานะ</th>
 <th> </th>
 </tr>";
 
@@ -43,6 +44,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td>". $Consuption."</td>";
   echo "<td>".$ppu."</td>";
   echo "<td>".$inprice."</td>";
+  echo "<td>".$row['status']."</td>";
  ?>
 
  
