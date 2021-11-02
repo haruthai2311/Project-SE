@@ -1,8 +1,9 @@
 <?php include('../../../config.php');
- $userid = $_SESSION['USER']['userid'];
- $sql = "SELECT * FROM `occupant` WHERE userid='$userid'";
+$userid = $_SESSION['USER']['userid'];
+ $sql = "SELECT * FROM invoices WHERE userid = '$userid' AND status= 'ค้างชำระ' ";
  $result = $connect->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -193,36 +194,85 @@
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
                 </div>
-               <?php
-                include 'db.php';
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>
+                            เลขที่บิล
+                          </th>
+                          <th>
+                            วันที่
+                          </th>
+                          <th>
+                            จำนวนไฟฟ้าที่ใช้ (บาท)
+                          </th>
+                          <th>
+                            จำนวนน้ำประปาที่ใช้ (บาท)
+                          </th>
+                          <th>รวม (บาท)</th>
+                          <th></th>
+                          
+                        </tr>
+                      </thead>
+                      
+                      <?php while($row = $result->fetch_assoc()):
+                        $preve = $row['preve'];
+                        $prese = $row['prese'];
+                        $prevw = $row['prevw'];
+                        $presw = $row['presw'];
+                        $price = $row['inprice'];
+                        $totalE = $prese - $preve;
+                        $totalW = $presw - $prevw;
+	
 
-                $result = mysqli_query($conn,"SELECT * FROM occupant INNER JOIN rooms ON occupant.id_room=rooms.id_room");
+                      $Consuption = $totalE+$totalW;  
+                      $ppu = $price / $Consuption;  
+	                    $priceE =  $totalE * $ppu;
+	                    $priceW = $totalW * $ppu;
 
-                echo "<table class=\"table\" >
-                <tr>
-                  <th>หมายเลขห้อง</th>
-                  <th>ผู้เช่า</th>
-                  <th>เลขมิเตอร์ไฟฟ้า</th>
-                  <th>เลขมิเตอร์น้ำประปา</th>
-                  <th>Action</th>
-                </tr>";
+                      ?>
+                      <tbody>
+                        <tr>
+                          <td >
+                          <?php echo $row['id_in']; ?>
+                          </td>
+                          <td>
+                          <?php echo $row['rcdate']; ?>
+                          </td>
+                          <td>
+                            <?php echo $priceE; ?>
+                          </td>
+                                                    
+                          <td><?php echo $priceW; ?></td>
+                          <td>
+                            <?php echo $row['inprice']; ?>
+                          </td>
+                          <td> 
+                          <?php echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|"; ?>
+                          <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>บิล </a> </td>
+                          </td>
+                        </tr>
+                        
+                        <?php endwhile ?>
+                      </tbody>
+                    </table>
+                  </div>
 
-                while($row = mysqli_fetch_array($result))
-                {
-                  echo "<tr>";
-                  echo "<td>" . $row['id_room'] . "</td>";
-                  echo "<td>" . $row['name_ocp'] . "&nbsp;" . $row['last_ocp'] . "</td>";
-                  echo "<td>" . $row['id_mte'] . "</td>";
-                  echo "<td>" . $row['id_mtw'] . "</td>";
-                  //<button type="button" id="popup" class="btn btn-primary mb-3" data-overlay="true" data-href="contact-us.html" data-content="ajax"><i class="fa fa-fw fa-file-alt"></i> CLICK HERE AJAX</button>
-                  echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>สร้างบิล</button>|";
+
+
+               
+                  <!-- button type="button" id="popup" class="btn btn-primary mb-3" data-overlay="true" data-href="contact-us.html" data-content="ajax"><i class="fa fa-fw fa-file-alt"></i> CLICK HERE AJAX</!>
+                  echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|";
                   //echo "<td><a  id='popup' data-overlay='true' data-href='paybill.php?id=".$row['id_room']."' data-content='ajax' ><span class=\"btn btn-info btn-xs glyphicon glyphicon-usd\">&nbsp;&nbsp;สร้างบิล&nbsp;&nbsp;</span> </a>| ";
                   //echo '<td><button type="button"  rel="facebox" id="popup" class="btn btn-info btn-xs glyphicon glyphicon-usd" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>สร้างบิล</button>| ';
                   //echo "<a rel='facebox' href='viewbill.php?id=".$row['id_room']."'><span class=\"btn btn-danger  btn-xs glyphicon glyphicon-eye-open\">&nbsp;&nbsp;View&nbsp;&nbsp;</span></td>";
                   //echo '<button type="button" rel="facebox" id="popup" class="btn btn-danger  btn-xs glyphicon glyphicon-eye-open" data-overlay="true" data-href="paybill.php" data-content="ajax"></i>รายละเอียด</button></td>';
-                  echo '<button type="button"  data-id="'.$row['id_room'].'" class="btn btn-warning  btn-sm detailbt" ></i>รายละเอียด</button></td>';
+                  //echo '<button type="button"  data-id="'.$row['id_room'].'" class="btn btn-warning  btn-sm detailbt" ></i>ดูบิล</button></td>';
+                  ?>
+                  <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=< ?php echo $row['id_in']; ?>'>บิล </a> </td>
 
-                  echo "</tr>";
+                  < ?php echo "</tr>";
                 }
                 echo "</table>";
                 ?>
@@ -263,7 +313,6 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">bill</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
