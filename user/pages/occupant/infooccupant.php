@@ -186,7 +186,6 @@
                 <div class="card-body">
                   <h4 class="card-title">ข้อมูลผู้เช่า</h4>
                   <p class="card-description">
-                    
                   </p>
                   <div class="table-responsive">
                     <table class="table table-hover">
