@@ -198,16 +198,16 @@ $userid = $_SESSION['USER']['userid'];
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>
+                          <th style='text-align:center'>
                             เลขที่บิล
                           </th>
-                          <th>
+                          <th style='text-align:center'>
                             วันที่
                           </th>
-                          <th>
+                          <th style='text-align:center'>
                             จำนวนไฟฟ้าที่ใช้ (บาท)
                           </th>
-                          <th>
+                          <th style='text-align:center'>
                             จำนวนน้ำประปาที่ใช้ (บาท)
                           </th>
                           <th>รวมทั้งสิ้น (บาท)</th>
@@ -234,21 +234,21 @@ $userid = $_SESSION['USER']['userid'];
                       ?>
                       <tbody>
                         <tr>
-                          <td >
+                          <td style='text-align:center' >
                           <?php echo $row['id_in']; ?>
                           </td>
-                          <td>
+                          <td style='text-align:center'>
                           <?php echo $row['rcdate']; ?>
                           </td>
-                          <td>
+                          <td style='text-align:center'>
                             <?php echo $priceE; ?>
                           </td>
                                                     
-                          <td><?php echo $priceW; ?></td>
-                          <td>
+                          <td style='text-align:center'><?php echo $priceW; ?></td>
+                          <td style='text-align:center'>
                             <?php echo $row['inprice']; ?>
                           </td>
-                          <td> 
+                          <td style='text-align:center'> 
                           <?php echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|"; ?>
                           <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>บิล </a> </td>
                           </td>
