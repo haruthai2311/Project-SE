@@ -253,7 +253,7 @@
                         <div class="form-group ">
                           <label>เลขมิเตอร์ไฟฟ้า :</label>
                           
-                            <input type="text" class="form-control" name="id_mtw" id="id_mtw" required oninvalid="this.setCustomValidity(' กรุณาระบุเลขมิเตอร์ไฟฟ้า')"
+                            <input type="text" class="form-control" name="id_mte" id="id_mte" required oninvalid="this.setCustomValidity(' กรุณาระบุเลขมิเตอร์ไฟฟ้า')"
                              oninput="this.setCustomValidity('')">
                           
                           <!--<div class="invalid-tooltip">กรุณาระบุเลขมิเตอร์ไฟฟ้า</div>-->
@@ -263,7 +263,7 @@
                         <div class="form-group">
                           <label>เลขมิเตอร์ประปา :</label>
                           
-                            <input type="text" class="form-control" name="id_mte" id="id_mte" required oninvalid="this.setCustomValidity(' กรุณาระบุเลขมิเตอร์น้ำประปา')"
+                            <input type="text" class="form-control" name="id_mtw" id="id_mtw" required oninvalid="this.setCustomValidity(' กรุณาระบุเลขมิเตอร์น้ำประปา')"
                              oninput="this.setCustomValidity('')">
                           
                         </div>
