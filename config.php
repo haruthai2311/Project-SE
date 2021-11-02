@@ -7,4 +7,5 @@
         die("Something wrong.: " . $connect->connect_error);
    }
 
-?>
+   session_start();
+   ?>
