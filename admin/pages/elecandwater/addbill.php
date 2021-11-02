@@ -13,7 +13,8 @@ $pricetotal = ($totalE+$totalW) * $price;
 $date=$_POST['date'] ;
 
 
-$insert = "INSERT INTO invoices (id_room,rcdate,preve,prese,prevw,presw,inprice) VALUES ('$id_room','$date','$preve','$prese','$prevw','$presw','$pricetotal')"; 
+
+$insert = "INSERT INTO invoices (id_room,rcdate,preve,prese,prevw,presw,inprice,pmno,status) VALUES ('$id_room','$date','$preve','$prese','$prevw','$presw','$pricetotal','0','overdue')"; 
 $resule = mysqli_query($conn,$insert);
 if($resule){
 	$up = "UPDATE tempo_bill SET prevw = '$presw', preve= '$prese' WHERE id_room = '$id_room'";
