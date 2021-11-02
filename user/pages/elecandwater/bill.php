@@ -189,7 +189,7 @@ $userid = $_SESSION['USER']['userid'];
          
           <div class='table-responsive'>
             <div class="card-body">
-              <h1><center><b> bill list </b></center></h1>
+              <h1><center><b> overdue items </b></center></h1>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
@@ -210,7 +210,7 @@ $userid = $_SESSION['USER']['userid'];
                           <th style='text-align:center'>
                             จำนวนน้ำประปาที่ใช้ (บาท)
                           </th>
-                          <th style='text-align:center'>รวม (บาท)</th>
+                          <th>รวมทั้งสิ้น (บาท)</th>
                           <th></th>
                           
                         </tr>
