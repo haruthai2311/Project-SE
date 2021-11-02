@@ -23,7 +23,7 @@ echo "<div class='table-responsive'>
 <th>จำนวนไฟฟ้า-ประปาที่ใช้</th>
 <th>ราคา/หน่วย</th>
 <th>รวมทั้งหมด</th>
-<th>สถานะ</th>
+<th>สถานะการชำระ</th>
 <th> </th>
 </tr>";
 

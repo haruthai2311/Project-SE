@@ -24,6 +24,7 @@ echo "<div class='table-responsive'>
 <th>ค่ามัดจำ</th>
 <th>ส่วนลด</th>
 <th>รวมทั้งหมด</th>
+<th>สถานะการชำระ</th>
 <th> </th>
 </tr>";
 
@@ -44,6 +45,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td>".$prerent."</td>";
   echo "<td>".$discount."</td>";
   echo "<td>".$pricetotal."</td>";
+  echo "<td>".$row['status_r']."</td>";
  ?>
 
  
