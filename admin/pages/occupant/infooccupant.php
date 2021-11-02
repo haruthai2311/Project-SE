@@ -11,6 +11,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -244,7 +246,9 @@
                             <?php echo  $row['contact_per'] ?>(<?php echo $row['contact_rlts'] ?>)&nbsp;โทร:<?php echo $row['contact_phone'] ?>
                           </td>
                           <td> 
-                            <a href="allinfo.php?idocp=<?php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</a>
+                        
+                            <button type="button"  data-id="<?php echo $row['id_ocp'];?>" class="btn btn-success btn-sm detailbt">details</button>
+                            <!--a href="allinfo.php?idocp=<?php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</! -->
                             <a href="editoccupant.php?idocp=<?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>
                             
                             <a href="deleteocp.php?idocp=<?php echo $row["id_ocp"];?>" title="Hapus Data" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')"
@@ -274,6 +278,8 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <?php require 'allinfo.php' ?>
+   
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
@@ -294,6 +300,27 @@
   <script src="../../js/typeahead.js"></script>
   <script src="../../js/select2.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('.detailbt').click(function(){
+      var ocpid=$(this).attr("data-id");
+      $.ajax({
+        url:"selectinfo.php",
+        method:"post", 
+        data:{id:ocpid},
+        success:function(data){
+          $('#detailocp').html(data)
+          $('#detailocpmodal').modal('show');
+        }
+      });
+     
+    });
+     
+  
+});
+</script>
 </body>
-
 </html>
