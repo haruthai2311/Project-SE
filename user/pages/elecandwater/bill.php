@@ -1,3 +1,9 @@
+<?php include('../../../config.php');
+ $userid = $_SESSION['USER']['userid'];
+ $sql = "SELECT * FROM `occupant` WHERE userid='$userid'";
+ $result = $connect->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -182,7 +188,7 @@
          
           <div class='table-responsive'>
             <div class="card-body">
-              <h1><center><b> Billing </b></center></h1>
+              <h1><center><b> bill list </b></center></h1>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
