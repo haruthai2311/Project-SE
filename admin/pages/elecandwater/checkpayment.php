@@ -207,13 +207,13 @@
                <?php
                 include 'db.php';
 
-                $result = mysqli_query($conn,"SELECT * FROM `invoices` WHERE status = 'กำลังดำเนินการ'");
+                $result = mysqli_query($conn,"SELECT * FROM `invoices` INNER JOIN payment ON invoices.pmno = payment.pmno WHERE payment.pmstatus = 'กำลังดำเนินการ'");
 
                 echo "<table class=\"table\" >
                 <tr>
                   <th style='text-align:center'>หมายเลขห้อง</th>
                   <th style='text-align:center'>เลขที่บิล</th>
-                  <th style='text-align:center'>วันที่</th>
+                  <th style='text-align:center'>วันที่ชำระ</th>
                   <th style='text-align:center'>จำนวนไฟฟ้า/ประปาที่ใช้</th>
                   <th style='text-align:center'>รวมทั้งสิ้น</th>
                   <th></th>
@@ -236,7 +236,7 @@
                   echo "<tr>";
                   echo "<td style='text-align:center'>" . $row['id_room'] . "</td>";
                   echo "<td style='text-align:center'>" . $row['id_in'] . "</td>";
-                  echo "<td style='text-align:center'>" . $row['rcdate'] . "</td>";
+                  echo "<td style='text-align:center'>" . $row['pm_date'] . "</td>";
                   echo "<td style='text-align:center' >" . $Consuption . "</td>";
                   echo "<td style='text-align:center'>" . $price . "</td>";
                   //<button type="button" id="popup" class="btn btn-primary mb-3" data-overlay="true" data-href="contact-us.html" data-content="ajax"><i class="fa fa-fw fa-file-alt"></i> CLICK HERE AJAX</button>
