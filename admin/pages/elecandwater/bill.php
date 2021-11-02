@@ -215,7 +215,7 @@
                   <th>ผู้เช่า</th>
                   <th>เลขมิเตอร์ไฟฟ้า</th>
                   <th>เลขมิเตอร์น้ำประปา</th>
-                  <th>Action</th>
+                  <th></th>
                 </tr>";
 
                 while($row = mysqli_fetch_array($result))
@@ -274,7 +274,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">bill</h5>
+        
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -291,7 +291,7 @@
   <div class="modal-dialog modal-lg">
   <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail bill</h5>
+        <h4 class="modal-title" id="exampleModalLabel">Detail bill</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
