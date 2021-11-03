@@ -1,3 +1,9 @@
+<?php include('../../../config.php');
+ $userid = $_SESSION['USER']['userid'];
+ $sql = "SELECT * FROM `notifications` WHERE userid='$userid'";
+ $result = $connect->query($sql);
+ $num=mysqli_num_rows($result); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +12,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PP-Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -174,14 +182,59 @@
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <div class="row icons-list">
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <i class="mdi mdi-access-point"></i> แจ้งซ่อม
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <i class="mdi mdi-access-point-network"></i> แจ้งซ่อม
-                    </div>
+                <h4 style='text-align:center' class="card-title ">รายการแจ้งซ่อม</h4>
+                <p align="right">
+                  <button type="button"  data-id="<?php echo  $userid;?>" class="btn btn-danger btn-sm noticebt">แจ้งซ่อม</button>
+                </p>
+                <?php if($num==0)   		
+                { ?>
+                <b><label><strong>คุณไม่มีรายการแจ้งซ่อม</strong></label></b>
+                <?php }else{ ?> 
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th style='text-align:center'>
+                            วันที่แจ้ง
+                          </th>
+                          <th style='text-align:center'>
+                            รายการ
+                          </th>
+                          <th style='text-align:center'>
+                            รายละเอียด
+                          </th>
+                          <th style='text-align:center'>
+                            สถานะ
+                          </th>
+                        
+                        
+                        </tr>
+                      </thead>
+                      <?php while($row = $result->fetch_assoc()): ?>
+                      <tbody>
+                        <tr>
+                          <td style='text-align:center'>
+                            <?php echo $row['date_notice']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                             <?php echo $row['title']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                             <?php echo $row['message']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                            <?php echo $row['status_notice']; ?>
+                          </td>
+                        
+                          
+                        </tr>
+                        <?php endwhile ?>  
+                      </tbody>
+                    </table>
                   </div>
+                  <?php   }	  ?>
+               
+	
                 </div>
               </div>
             </div>
@@ -200,6 +253,23 @@
 
   </div>
   <!-- plugins:js -->
+
+  <!--################################################ Detail Bill ############################################################ -->
+<div class="modal fade " id="noticemodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+  <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">แจ้งซ่อม</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="notice">
+        
+    </div>
+  </div>
+</div>
+
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
@@ -213,6 +283,30 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('.noticebt').click(function(){
+    var uid=$(this).attr("data-id");
+    $.ajax({
+      url:"addnotice.php",
+      method: "post",
+      data:{id:uid},
+      success:function(data){
+        $('#notice').html(data);
+        $('#noticemodal').modal('show');
+      }
+
+    });
+     
+  });
+
+ 
+ 
+});
+</script>
 </body>
 
 </html>
