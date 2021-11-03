@@ -248,9 +248,9 @@
                           <td> 
                         
                             <button type="button"  data-id="<?php echo $row['id_ocp'];?>" class="btn btn-success btn-sm detailbt">details</button>
-                            <!--a href="allinfo.php?idocp=<?php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</! -->
-                            <a href="editoccupant.php?idocp=<?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>
-                            
+                            <!--a href="allinfo.php?idocp=< php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</! 
+                            <a href="editoccupant.php?idocp=< ?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>-->
+                            <button type="button"  data-id="<?php echo $row['id_ocp'];?>"  class="btn btn-warning btn-sm editbt">&nbsp;&nbsp;edit&nbsp;&nbsp;</button>
                             <a href="deleteocp.php?idocp=<?php echo $row["id_ocp"];?>" title="Hapus Data" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')"
                           class="btn btn-danger btn-sm"><span class="" aria-hidden="">delete</span></a>
                           </td>
@@ -279,6 +279,25 @@
     <!-- page-body-wrapper ends -->
   </div>
   <?php require 'allinfo.php' ?>
+
+  <!-- ########################################## EDIT INFO ###########################################-->
+  <div  class="modal fade bd-example-modal-lg " id="editocpmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg  ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel"><strong>แก้ไขข้อมูล</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="editocp">
+         
+      </div>
+      
+    </div>
+  </div>
+</div>
+
    
   <!-- container-scroller -->
   <!-- plugins:js -->
@@ -314,6 +333,20 @@ $(document).ready(function(){
         success:function(data){
           $('#detailocp').html(data)
           $('#detailocpmodal').modal('show');
+        }
+      });
+     
+    });
+
+    $('.editbt').click(function(){
+      var ocpid=$(this).attr("data-id");
+      $.ajax({
+        url:"editoccupant.php",
+        method:"post", 
+        data:{id:ocpid},
+        success:function(data){
+          $('#editocp').html(data)
+          $('#editocpmodal').modal('show');
         }
       });
      
