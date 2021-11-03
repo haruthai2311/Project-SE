@@ -1,9 +1,8 @@
-
 <?php
 session_start();
 $id = $_POST["id"];
 $conn = mysqli_connect('localhost', 'root', '','datahome') or die("Error: " . mysqli_error($conn));
-$result = mysqli_query($conn,"SELECT * FROM occupant INNER JOIN rooms ON occupant.id_room=rooms.id_room WHERE rooms.id_room =  '$id'");
+$result = mysqli_query($conn,"SELECT * FROM payment INNER JOIN invioces ON payment.pmstatus=invioces.status WHERE invioces.userid =  '$id'"); 
 
 
 
@@ -33,9 +32,7 @@ echo $date;?></p>
 
 <h6><p style="text-align:left"><u>หมายเหตุ</u></p></h6>
 <p style="text-align:left">1.สามารถโอนเงินเข้าบัญชี<strong class="text-danger">ธนาคารกรุงไทย</strong> สาขาสกลนคร ที่หมายเลขบัญชี <strong class="text-danger"> <u>412-194-5514</u></strong> ชื่อบัญชี <strong class="text-danger">เพิ่มพล กุดจอมศรี</strong></p>
-<p style="text-align:left">2.กรุณาชำระค่าน้ำ-ไฟฟ้า-อินเทอร์เน็ต ภายใน 7 วันที่ได้รับใบเรียกเก็บ ภายหลัง 7 วัน ปรับวันละ 10 บาท</p>
-<p style="text-align:left">3.กรุณาดูแลความสะอาดหน้าห้องและหลังห้องพัก หากสกปรกทางหอพักจะดำเนินการจัดเก็บให้ โดยจะคิดค่าบริการเก็บขยะในใบเรียกเก็บเดือนถัดไป</p>
-<p style="text-align:left">4.เบอร์โทรติดต่อในกรณีฉุกเฉิน 08-1399-3024,083-982-1044(พี่สงค์),08-4566-3865 </p>
+<p style="text-align:left">2.กรุณาชำระค่าน้ำ-ไฟฟ้า-อินเทอร์เน็ต ภายใน 7 วันที่ได้รับใบเรียกเก็บ ภายหลังจาก 7 วัน ปรับวันละ 10 บาท</p>
 <p style="text-align:left">***เมื่อทำการชำระแล้วโปรด <strong class="text-danger">แนบสลิปการโอน </strong>เพื่อยืนยันการชำระ***</p>
 
 <!-- partial -->
@@ -53,9 +50,8 @@ echo $date;?></p>
 </div> -->
 
 
-<?php
 //1. เชื่อมต่อ database: 
-include('connect.php');  //ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้าน้ี
+<?php include('../../../config.php'); //ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้าน้ี
 //2. query ข้อมูลจากตาราง: 
 $query = "SELECT * FROM uploadfile ORDER BY fileID asc" or die("Error:" . mysqli_error()); 
 //3. execute the query. 
