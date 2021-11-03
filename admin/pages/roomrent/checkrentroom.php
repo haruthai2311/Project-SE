@@ -6,7 +6,7 @@ $conn = mysqli_connect('localhost', 'root', '','datahome') or die("Error: " . my
   
 $result = mysqli_query($conn,"SELECT * FROM ((paymentroom
 INNER JOIN invoicesroomrent ON paymentroom.pmrno = invoicesroomrent.pmrno)
-INNER JOIN occupant ON paymentroom.id_ocp = occupant.id_ocp)
+INNER JOIN occupant ON paymentroom.userid = occupant.userid)
 WHERE paymentroom.pmrno = '$id'");
 $test = mysqli_fetch_array($result);
 if (!$result) 
@@ -56,7 +56,7 @@ echo $date;?></p -->
   </tr>
   <tr><td>ชื่อ : <?php echo $name_ocp.'&nbsp;' .$last_ocp;?></td>
   <tr>
-  <td>ค่าเช่าห้องพัก : <?php echo $priceroom; ?></td><td>ค่ามัดจำ/ประกันของเสียหาย : <?php echo $prerent; ?></td>
+  <td>ค่าเช่าห้องพัก : <?php echo $priceroom; ?></td><td >ค่ามัดจำ/ประกันของเสียหาย : <?php echo $prerent; ?></td>
   </tr>
   <tr><td> ส่วนลด : <?php echo $discount; ?> </td></tr>
   <tr>
@@ -72,10 +72,11 @@ echo $date;?></p -->
   <tr>
   <td>หลักฐานการชำระ :</td>
   </tr>
-  <tr>
-  <td><?php echo $slip_r; ?> </td>
-  </tr>
+  
 </table>
+  <center><tr>
+  <td ><img src='../../../user/pages/roomrent/fileupload/<?php echo $slip_r; ?>'  width='400'></td>
+  </tr></center>
 
 <div class="text-right">
     <button type="submit" class="btn btn-primary">การชำระถูกต้อง</button>
