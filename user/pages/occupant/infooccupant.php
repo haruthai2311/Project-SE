@@ -3,7 +3,6 @@
  $sql = "SELECT * FROM `occupant` WHERE userid='$userid'";
  $result = $connect->query($sql);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +11,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PP-Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -145,7 +146,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/bill.php">ตรวจสอบและชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/bill.php">ตรวจสอบการชำระ</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/elecandwater/checkpayment.php">สถานะการชำระ</a></li>
               </ul>
             </div>
@@ -158,7 +159,7 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ตรวจสอบและชำระ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/billrent.php">ตรวจสอบการชำระ</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/roomrent/checkpaymentroom.php">สถานะการชำระ</a></li>
               </ul>
             </div>
@@ -166,12 +167,12 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">การแจ้งซ่อม</span>
+              <span class="menu-title">ซ่อม/บำรุง</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/repairnotice/checkrepair.php">ตรวจสอบการแจ้ง</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/repairnotice/checkrepair.php">แจ้งปัญหา</a></li>
               </ul>
             </div>
           </li>
@@ -186,6 +187,7 @@
                 <div class="card-body">
                   <h4 class="card-title">ข้อมูลผู้เช่า</h4>
                   <p class="card-description">
+                    
                   </p>
                   <div class="table-responsive">
                     <table class="table table-hover">
@@ -228,9 +230,11 @@
                             <?php echo  $row['contact_per'] ?>(<?php echo $row['contact_rlts'] ?>)&nbsp;โทร:<?php echo $row['contact_phone'] ?>
                           </td>
                           <td> 
-                            <a href="allinfo.php?idocp=<?php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</a>
-                            <a href="editoccupant.php?idocp=<?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>
-                            
+                        
+                            <button type="button"  data-id="<?php echo $row['id_ocp'];?>" class="btn btn-success btn-sm detailbt">details</button>
+                            <!--a href="allinfo.php?idocp=< php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</! 
+                            <a href="editoccupant.php?idocp=< ?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>-->
+                            <button type="button"  data-id="<?php echo $row['id_ocp'];?>"  class="btn btn-warning btn-sm editbt">&nbsp;&nbsp;edit&nbsp;&nbsp;</button>
                             <a href="deleteocp.php?idocp=<?php echo $row["id_ocp"];?>" title="Hapus Data" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')"
                           class="btn btn-danger btn-sm"><span class="" aria-hidden="">delete</span></a>
                           </td>
@@ -258,6 +262,27 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <?php require 'allinfo.php' ?>
+
+  <!-- ########################################## EDIT INFO ###########################################-->
+  <div  class="modal fade bd-example-modal-lg " id="editocpmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg  ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel"><strong>แก้ไขข้อมูล</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="editocp">
+         
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+   
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
@@ -278,6 +303,41 @@
   <script src="../../js/typeahead.js"></script>
   <script src="../../js/select2.js"></script>
   <!-- End custom js for this page-->
-</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('.detailbt').click(function(){
+      var ocpid=$(this).attr("data-id");
+      $.ajax({
+        url:"selectinfo.php",
+        method:"post", 
+        data:{id:ocpid},
+        success:function(data){
+          $('#detailocp').html(data)
+          $('#detailocpmodal').modal('show');
+        }
+      });
+     
+    });
 
+    $('.editbt').click(function(){
+      var ocpid=$(this).attr("data-id");
+      $.ajax({
+        url:"editoccupant.php",
+        method:"post", 
+        data:{id:ocpid},
+        success:function(data){
+          $('#editocp').html(data)
+          $('#editocpmodal').modal('show');
+        }
+      });
+     
+    });
+     
+  
+});
+</script>
+</body>
 </html>
