@@ -238,7 +238,8 @@
                           <?php } ?></td>
                         
                         <td>
-                          <a href="editroom.php?idr=<?php echo $row["id_room"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>edit</a>
+                          <!-- a href="editroom.php?idr=<?php echo $row["id_room"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>edit</! -->
+                          <button type="button"  data-id="<?php echo $row['id_room'];?>"  class="btn btn-warning btn-sm editbt">&nbsp;&nbsp;edit&nbsp;&nbsp;</button>
                           <a href="deleteroom.php?idr=<?php echo $row["id_room"];?>" title="Hapus Data" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')"
                           class="btn btn-danger btn-sm"><span class="" aria-hidden="">delete</span></a>
                         </td> 
@@ -268,6 +269,25 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+
+ <!-- ########################################## EDIT INFO ###########################################-->
+ <div  class="modal fade bd-example-modal-lg " id="editroommodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg  ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel"><strong>แก้ไขข้อมูล</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="editroom">
+         
+      </div>
+      
+    </div>
+  </div>
+</div>
+
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -280,6 +300,30 @@
   <script src="../../js/settings.js"></script>
   <script src="../../js/todolist.js"></script>
   <!-- endinject -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  
+
+    $('.editbt').click(function(){
+      var rid=$(this).attr("data-id");
+      $.ajax({
+        url:"editroom.php",
+        method:"post", 
+        data:{id:rid},
+        success:function(data){
+          $('#editroom').html(data)
+          $('#editroommodal').modal('show');
+        }
+      });
+     
+    });
+     
+  
+});
+</script>
 </body>
 
 </html>
