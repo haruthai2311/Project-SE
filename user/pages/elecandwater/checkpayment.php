@@ -1,5 +1,5 @@
 <?php include('../../../config.php');
-$userid = $_SESSION['USER']['userid'];
+ $userid = $_SESSION['USER']['userid'];
  $sql = "SELECT * FROM invoices WHERE userid = '$userid' AND status != 'ค้างชำระ' ";
  $result = $connect->query($sql);
 ?>
