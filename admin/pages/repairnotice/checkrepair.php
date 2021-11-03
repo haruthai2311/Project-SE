@@ -1,3 +1,8 @@
+<?php include('../../../config.php');
+ $sql = "SELECT * FROM `notifications`";
+ $result = $connect->query($sql);
+ $num=mysqli_num_rows($result); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Admin</title>
   <!-- plugins:css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
@@ -190,14 +197,63 @@
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <div class="row icons-list">
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <i class="mdi mdi-access-point"></i> แจ้งซ่อม
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <i class="mdi mdi-access-point-network"></i> แจ้งซ่อม
-                    </div>
+                <h4 style='text-align:center' class="card-title ">รายการแจ้งซ่อม</h4>
+                
+                <?php if($num==0)   		
+                { ?>
+                <b><label><strong>คุณไม่มีรายการแจ้งซ่อม</strong></label></b>
+                <?php }else{ ?> 
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th style='text-align:center'>
+                            วันที่แจ้ง
+                          </th>
+                          <th style='text-align:center'>
+                            รายการ
+                          </th>
+                          <th style='text-align:center'>
+                            รายละเอียด
+                          </th>
+                          <th style='text-align:center'>
+                            สถานะ
+                          </th>
+                          <th></th>
+                        
+                        
+                        </tr>
+                      </thead>
+                      <?php while($row = $result->fetch_assoc()): ?>
+                      <tbody>
+                        <tr>
+                          <td style='text-align:center'>
+                            <?php echo $row['date_notice']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                             <?php echo $row['title']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                             <?php echo $row['message']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                            <?php echo $row['status_notice']; ?>
+                          </td>
+                         <td><?php if($row['status_notice']==('เสร็จสิ้น')){ ?>
+                            <label style='color: green'><I>ดำเนินการเรียบร้อย</I></label>
+                            <p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<a  style='color: red' href="deletenotice.php?id=  <?php echo $row['id']; ?>"  onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">delete</a></p><?php } 
+                            elseif($row['status_notice']==('กำลังดำเนินการ')){ ?>
+                            <button type="button"  data-id="<?php echo $row['id']; ?>" class="btn btn-success btn-sm successbt">&nbsp; &nbsp; &nbsp;&nbsp;สำเร็จ&nbsp; &nbsp;&nbsp; &nbsp;</button><?php }  else {?>
+                              <button type="button"  data-id="<?php echo $row['id']; ?>" class="btn btn-danger btn-sm addjobbt">รับงานแจ้งซ่อม</button> <?php } ?></td>
+                          
+                        </tr>
+                        <?php endwhile ?>  
+                      </tbody>
+                    </table>
                   </div>
+                  <?php   }	  ?>
+               
+	
                 </div>
               </div>
             </div>
@@ -216,6 +272,43 @@
 
   </div>
   <!-- plugins:js -->
+
+  <!--################################################ รายละเอียกและกดรับงาน ############################################################ -->
+<div class="modal fade" id="notifiedmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดการแจ้งซ่อม</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="notified">
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--################################################ กดดำเนินการเสร็จสิ้น ############################################################ -->
+<div class="modal fade" id="successmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดการซ่อม</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="success">
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
@@ -229,6 +322,42 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('.addjobbt').click(function(){
+    var rid=$(this).attr("data-id");
+    $.ajax({
+      url:"notified.php",
+      method: "post",
+      data:{id:rid},
+      success:function(data){
+        $('#notified').html(data);
+        $('#notifiedmodal').modal('show');
+      }
+
+    });
+     
+  });
+
+  $('.successbt').click(function(){
+    var rid=$(this).attr("data-id");
+    $.ajax({
+      url:"success.php",
+      method: "post",
+      data:{id:rid},
+      success:function(data){
+        $('#success').html(data);
+        $('#successmodal').modal('show');
+      }
+
+    });
+  });
+  
+});
+</script>
 </body>
 
 </html>
