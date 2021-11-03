@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2021 at 12:10 PM
+-- Generation Time: Nov 03, 2021 at 04:48 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -46,10 +46,10 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`id_in`, `userid`, `id_room`, `rcdate`, `preve`, `prese`, `prevw`, `presw`, `inprice`, `pmno`, `status`) VALUES
-(16, '1102003228851', '303', '01/11/21', '2032', '2050', '129', '132', '147', '1', 'pending'),
-(17, '1199900767214', '413', '01/11/21', '996', '1000', '85', '89', '56', '0', 'overdue'),
-(18, '1102003228851', '303', '02/11/21', '2050', '2100', '132', '135', '371', '2', 'pending'),
-(19, '1199900767214', '413', '02/11/21', '1000', '1060', '89', '95', '462', '0', 'overdue');
+(16, '24', '303', '01/11/21', '2032', '2050', '129', '132', '147', '1', 'กำลังดำเนินการ'),
+(17, '10', '413', '01/11/21', '996', '1000', '85', '89', '56', '2', 'ชำระเสร็จสิ้น'),
+(18, '24', '303', '02/11/21', '2050', '2100', '132', '135', '371', '0', 'ค้างชำระ'),
+(19, '10', '413', '02/11/21', '1000', '1060', '89', '95', '462', '3', 'กำลังดำเนินการ');
 
 -- --------------------------------------------------------
 
@@ -59,22 +59,50 @@ INSERT INTO `invoices` (`id_in`, `userid`, `id_room`, `rcdate`, `preve`, `prese`
 
 CREATE TABLE `invoicesroomrent` (
   `id_inroom` int(11) NOT NULL,
-  `id_room` int(11) NOT NULL,
+  `userid` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `id_room` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `date` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'วันที่บันทึก',
   `priceroom` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ราคาห้อง',
   `prerent` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ค่ามัดจำ',
   `discount` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ส่วนลด',
   `totalprice` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ราคา',
-  `semester` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ภาคการศึกษา'
+  `semester` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ภาคการศึกษา',
+  `pmrno` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `status_r` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `invoicesroomrent`
 --
 
-INSERT INTO `invoicesroomrent` (`id_inroom`, `id_room`, `date`, `priceroom`, `prerent`, `discount`, `totalprice`, `semester`) VALUES
-(4, 303, '01/11/21', '8000', '0', '500', '7500', 'ภาคปลาย 64'),
-(5, 413, '01/11/21', '10000', '0', '0', '10000', 'ภาคปลาย 64');
+INSERT INTO `invoicesroomrent` (`id_inroom`, `userid`, `id_room`, `date`, `priceroom`, `prerent`, `discount`, `totalprice`, `semester`, `pmrno`, `status_r`) VALUES
+(4, '24', '303', '01/11/21', '8000', '0', '500', '7500', 'ภาคปลาย 64', '0', 'ค้างชำระ'),
+(5, '10', '413', '01/11/21', '10000', '0', '0', '10000', 'ภาคปลาย 64', '0', 'ค้างชำระ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `date_notice` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `userid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status_notice` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `date_notice`, `title`, `message`, `userid`, `status_notice`) VALUES
+(8, '03/11/21', 'น้ำประปา', 'น้ำไม่ไหลค่ะ อยากอาบน้ำจัง<br>***หมายเหตุ : ซ่อมเสร็จเรียบร้อย', '10', 'เสร็จสิ้น'),
+(9, '03/11/21', 'ไฟ', 'ไฟที่ห้องไม่ติดค่ะ มืดมาก', '24', 'เสร็จสิ้น'),
+(10, '03/11/21', 'อินเตอร์เน็ต', 'อินเตอร์เน็ตขึ้นให้ชำระค่าบริการรายเดือนค่ะ', '24', 'กำลังดำเนินการ'),
+(11, '03/11/21', 'สิ่งอำนวยความสะดวก', 'พัดลมเสียงดังมากค่ะ', '24', 'แจ้งซ่อม');
 
 -- --------------------------------------------------------
 
@@ -101,7 +129,7 @@ CREATE TABLE `occupant` (
 --
 
 INSERT INTO `occupant` (`id_ocp`, `name_ocp`, `last_ocp`, `gender_ocp`, `phone_ocp`, `address`, `contact_per`, `contact_phone`, `contact_rlts`, `id_room`, `userid`) VALUES
-('1102003228851', 'หฤทัย', 'ไชยเทศ', 'หญิง', '0985149477', '  2 หมู่ 3  บ้านข่า ศรีสงคราม นครพนม 48150', 'ถาวร  ไชยเทศ', '0625820657', 'แม่', '303', 24),
+('1102003228851', 'หฤทัย', 'ไชยเทศ', 'หญิง', '0985149477', '    2 หมู่ 3  บ้านข่า ศรีสงคราม นครพนม 48150', 'ถาวร  ไชยเทศ', '0625820657', 'แม่', '303', 24),
 ('1199900767214', 'มัสลิน', 'สิงห์อุบล', 'หญิง', '0925356022', '  120/9 ม.10  ตาลเดี่ยว แก่งคอย สระบุรี 18110', 'ชาตรี สิงห์อุบล', '0812905469', 'พ่อ', '413', 10);
 
 -- --------------------------------------------------------
@@ -113,11 +141,36 @@ INSERT INTO `occupant` (`id_ocp`, `name_ocp`, `last_ocp`, `gender_ocp`, `phone_o
 CREATE TABLE `payment` (
   `pmno` int(11) NOT NULL COMMENT 'เลขที่การชำระ',
   `id_invoices` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'เลขที่ใบชำระ',
-  `id_ocp` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ไอดีผู้เช่า',
+  `userid` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ไอดีผู้เช่า',
   `pm_date` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'วันที่ชำระ',
-  `apdate` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'วันที่อนุมัติ',
+  `slip` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รูปสลิป',
   `pmtotal` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'จำนวนเงิน',
   `pmstatus` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'สถานะ'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`pmno`, `id_invoices`, `userid`, `pm_date`, `slip`, `pmtotal`, `pmstatus`) VALUES
+(1, '16', '24', '02/11/21', '55555', '147', 'กำลังดำเนินการ'),
+(2, '17', '10', '01/11/21', '6666', '56', 'ชำระเสร็จสิ้น'),
+(3, '19', '10', '03/11/21', '4534', '462', 'กำลังดำเนินการ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentroom`
+--
+
+CREATE TABLE `paymentroom` (
+  `pmrno` int(11) NOT NULL,
+  `id_inroom` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `userid` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `pmrdate` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'วันที่',
+  `pmrtotal` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'จำนวนเงิน',
+  `slip_r` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'สลิปการโอน',
+  `pmrstatus` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'สถานะ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -230,6 +283,12 @@ ALTER TABLE `invoicesroomrent`
   ADD PRIMARY KEY (`id_inroom`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `occupant`
 --
 ALTER TABLE `occupant`
@@ -240,6 +299,12 @@ ALTER TABLE `occupant`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`pmno`);
+
+--
+-- Indexes for table `paymentroom`
+--
+ALTER TABLE `paymentroom`
+  ADD PRIMARY KEY (`pmrno`);
 
 --
 -- Indexes for table `rooms`
@@ -277,10 +342,22 @@ ALTER TABLE `invoicesroomrent`
   MODIFY `id_inroom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `pmno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'เลขที่การชำระ';
+  MODIFY `pmno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'เลขที่การชำระ', AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `paymentroom`
+--
+ALTER TABLE `paymentroom`
+  MODIFY `pmrno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tempo_bill`
