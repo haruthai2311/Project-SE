@@ -53,7 +53,7 @@ echo $date;?></p>
 //1. เชื่อมต่อ database: 
 <?php include('../../../config.php'); //ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้าน้ี
 //2. query ข้อมูลจากตาราง: 
-$query = "SELECT * FROM uploadfile ORDER BY fileID asc" or die("Error:" . mysqli_error()); 
+$query = "SELECT * FROM uploadfile ORDER BY fileID asc" or die("Error:" . mysqli_error($)); 
 //3. execute the query. 
 $result = mysqli_query($con, $query); 
 echo "</table>";

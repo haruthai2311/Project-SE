@@ -2,6 +2,7 @@
 $userid = $_SESSION['USER']['userid'];
  $sql = "SELECT * FROM `invoicesroomrent` WHERE userid = '$userid' AND status_r = 'ค้างชำระ' ";
  $result = $connect->query($sql);
+ $num=mysqli_num_rows($result); 
 ?>
 
 
@@ -194,6 +195,10 @@ $userid = $_SESSION['USER']['userid'];
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
                 </div>
+                <?php if($num==0)   		
+                { ?>
+                <center><b><label><strong><i>คุณไม่มีบิลที่ค้างชำระ</i></strong></label></b><center>
+                <?php }else{ ?> 
                 <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
@@ -236,6 +241,8 @@ $userid = $_SESSION['USER']['userid'];
                       </tbody>
                     </table>
                   </div>
+                  <?php   }	  ?>
+               
 
 
 
@@ -253,7 +260,7 @@ $userid = $_SESSION['USER']['userid'];
                   < ?php echo "</tr>";
                 }
                 echo "</table>";
-                ?>
+                ? -->
              
                 
               </div>
@@ -287,11 +294,11 @@ $userid = $_SESSION['USER']['userid'];
 
 <!-- Modal -->
 <!--################################################ Add Bill ############################################################ -->
-<div class="modal fade bd-example-modal-lg" id="paymmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade " id="paymmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดการชำระ</h5>
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดการชำระค่าห้องพัก</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
