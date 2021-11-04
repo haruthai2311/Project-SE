@@ -161,7 +161,7 @@
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/elecandwater/bill.php">ตรวจสอบและชำระ</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/elecandwater/checkpayment.php">สถานะการชำระ</a></li><!--ยังไม่ใส่โค้ด-->
+                < class="nav-item"> <a class="nav-link" href="pages/elecandwater/checkpayment.php">สถานะการชำระ</a></
               </ul>
             </div>
           </li>
@@ -201,7 +201,6 @@
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                   <h3 class="font-weight-bold"><div><?php  if (isset($_SESSION['USER'])) : ?><strong><?php echo "สวัสดี   ",$_SESSION['USER']['name']; ?></strong><?php endif ?></div> </h3>
-					
                 </div>
               </div>
             </div>
