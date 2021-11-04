@@ -161,7 +161,7 @@
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/elecandwater/bill.php">ตรวจสอบและชำระ</a></li>
-                < class="nav-item"> <a class="nav-link" href="pages/elecandwater/checkpayment.php">สถานะการชำระ</a></
+                <li class="nav-item"> <a class="nav-link" href="pages/elecandwater/checkpayment.php">สถานะการชำระ</a></li>
               </ul>
             </div>
           </li>

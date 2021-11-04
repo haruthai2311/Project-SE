@@ -234,12 +234,8 @@
                             <button type="button"  data-id="<?php echo $row['id_ocp'];?>" class="btn btn-success btn-sm detailbt">&nbsp;&nbsp;details&nbsp;&nbsp;</button>
                             <!--a href="allinfo.php?idocp=< php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</! 
                             <a href="editoccupant.php?idocp=< ?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>-->
-<<<<<<< HEAD
                             <button type="button"  data-id="<?php echo $row['id_ocp'];?>"  class="btn btn-warning btn-sm editbt">&nbsp;&nbsp;&nbsp;&nbsp;edit&nbsp;&nbsp;&nbsp;&nbsp;</button>
                             <button type="button"  data-id="<?php echo $row['id_ocp'];?>" class="btn btn-danger btn-sm edituserbt">แก้ไขบัญชี</button>
-=======
-                            <button type="button"  data-id="<?php echo $row['id_ocp'];?>"  class="btn btn-warning btn-sm editbt">&nbsp;&nbsp;edit&nbsp;&nbsp;</button>
->>>>>>> 952d104b0220a5b0543f9dade89c3af7253a0165
                             
                           </td>
                         </tr>
