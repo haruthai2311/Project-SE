@@ -190,7 +190,7 @@ $userid = $_SESSION['USER']['userid'];
          
           <div class='table-responsive'>
             <div class="card-body">
-              <h1><center><b> overdue items </b></center></h1>
+              <h1><center><b>status </b></center></h1>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
