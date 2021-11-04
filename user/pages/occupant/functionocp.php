@@ -10,6 +10,11 @@ if (isset($_POST['addocp'])) {
 if (isset($_POST['editocp'])) {
 	editoccupant();
 }
+
+if(isset($_POST['edituser'])){
+    edituser();
+}
+
 function addoccupant(){
     global $con;
     // get the post records
@@ -95,6 +100,42 @@ function editoccupant(){
     echo "window.location = 'infooccupant.php'; ";
     echo "</script>";}
 }
+
+function edituser(){
+    global $con;
+    // get the post records
+    $id_room = $_POST['id_room'];
+    $userid = $_POST['userid'];
+    $name = $_POST['name'];
+    $username =$_POST['username'];
+    $password = $_POST['password'];
+  
+   
+   
+
+    // database insert SQL code
+    $sql = "UPDATE `user` SET `name` = '$name' ,`username` = '$username' ,`password` = '$password',`id_room` = '$id_room' WHERE `userid` ='$userid'";
+
+    // insert in database 
+   //จาวาสคริปแสดงข้อความเมื่อบันทึกเสร็จและกระโดดกลับไปหน้าฟอร์ม
+   $rs = mysqli_query($con, $sql) or  (mysqli_error($con));
+   ?><script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <?php
+   //จาวาสคริปแสดงข้อความเมื่อบันทึกเสร็จและกระโดดกลับไปหน้าฟอร์ม
+   if($rs){
+    echo "<script type='text/javascript'>";
+    echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว');";
+    echo "window.location = 'infooccupant.php'; ";
+    echo "</script>";
+    }
+    else{
+    echo "<script type='text/javascript'>";
+    echo "alert('Username นี้มีผู้ใช้แล้ว โปรดใช้ชื่อใหม่');";
+    echo "window.location = 'infooccupant.php'; ";
+    echo "</script>";}
+
+}
+
 if (isset($_POST['canceledit'])) {
     header("location:infooccupant.php");
     exit(0);

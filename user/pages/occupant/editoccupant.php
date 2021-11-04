@@ -9,7 +9,7 @@ $row=mysqli_fetch_assoc($result);
 ?>
 <form  class="form-sample" method="POST" action="functionocp.php">
                     <strong><p class="card-description">
-                      เพิ่มข้อมูลของผู้เช่า
+                      รายละเอียดข้อมูล
                     </p></strong>
                     
                     <div class="row justify-content-md-center">
