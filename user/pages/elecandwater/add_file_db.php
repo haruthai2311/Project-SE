@@ -8,7 +8,7 @@ $userid = $_POST['userid'];
 $inprice = $_POST['inprice'];
 
 
-       
+$pmdate = date("d/m/y");      
 
 //ฟังก์ชั่นวันที่
 date_default_timezone_set('Asia/Bangkok');
@@ -34,8 +34,8 @@ move_uploaded_file($_FILES['fileupload']['tmp_name'],$path_copy);
 }
 // เพิ่มไฟล์เข้าไปในตาราง uploadfile
 
-    $sql = "INSERT INTO payment (id_invoices,userid,pmdate,slip,pmtotal,pmrtatus ) 
-    VALUES('$id','$userid','$pm_date','$pmtotal','$newname','กำลังดำเนินการ')";
+    $sql = "INSERT INTO payment (id_in,userid,pm_date,slip,pmtotal,pmstatus ) 
+    VALUES('$id','$userid','$pmdate','$newname','$inprice','กำลังดำเนินการ')";
     
     $result = mysqli_query($connect, $sql) or die ("Error in query: $sql " . mysqli_error($connect));
 
@@ -45,11 +45,11 @@ move_uploaded_file($_FILES['fileupload']['tmp_name'],$path_copy);
 //SELECT pmrno FROM `paymentroom` WHERE id_inroom = '4'
 
 if($result){
-    $ss = "SELECT pmrno FROM `payment` WHERE id_in = '$id'";
+    $ss = "SELECT pmno FROM `payment` WHERE id_in = '$id'";
     $r = mysqli_query($connect, $ss); 
     $row = mysqli_fetch_array($r);
-    $pmrno = $row['pmno'];
-    $update = "UPDATE invoices SET status = 'กำลังดำเนินการ' , pmno = '$pmrno' WHERE id_in = '$id'  ";
+    $pmno = $row['pmno'];
+    $update = "UPDATE invoices SET status = 'กำลังดำเนินการ' , pmno = '$pmno' WHERE id_in = '$id'  ";
     mysqli_query($connect,$update) or die(mysqli_error($connect));
         echo "<script type='text/javascript'>";
         echo "alert('Upload File Succesfuly');";

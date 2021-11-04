@@ -240,7 +240,7 @@ $userid = $_SESSION['USER']['userid'];
                       <tbody>
                         <tr>
                           <td style='text-align:center' >
-                          <?php echo $row['id_invoices']; ?>
+                          <?php echo $row['id_in']; ?>
                           </td>
                           <td style='text-align:center'>
                           <?php echo $row['rcdate']; ?>
@@ -254,7 +254,7 @@ $userid = $_SESSION['USER']['userid'];
                             <?php echo $row['inprice']; ?>
                           </td>
                           <td style='text-align:center'> 
-                          <?php echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|"; ?>
+                          <?php echo "<td><button type='button' data-id='".$row['id_in']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|"; ?>
                           <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>บิล </a> </td>
                           </td>
                         </tr>

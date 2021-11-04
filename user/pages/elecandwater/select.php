@@ -4,22 +4,30 @@
  $id = $_POST['id'];
 echo "<p>". $date=date('d/m/y');"</p>";
 //2. query ข้อมูลจากตาราง: 
-$query = "SELECT * FROM invoices WHERE id_invoices  = '$id'" or die("Error:" . mysqli_error($connect)); 
+$query = "SELECT * FROM invoices WHERE id_in  = '$id'" or die("Error:" . mysqli_error($connect)); 
 //3. execute the query. 
 $result = mysqli_query($connect, $query); 
 //4 . แสดงข้อมูลที่ query ออกมา: 
 
 
 while($row = mysqli_fetch_array($result)) { 
-  $id_invoices = $row["id_invoices"]; 
+  $id_invoices = $row["id_in"]; 
   $id_room = $row["id_room"]; 
   $inprice = $row["inprice"] ;  
   $rcdate = $row['rcdate'];
   $id_room = $row['id_room'];
-  $totalE = $row['prese']-$row['preve'];
-  $totalW = $row['presw']-$row['prevw'];
-  $price = $row['price'];
-  $pricetotal = ($totalE+$totalW) * $price;
+  $prese = $row['prese'];
+  $preve = $row['preve'];
+  $totalE = $prese - $preve;
+  $presw = $row['presw'];
+  $prevw = $row['prevw'];
+  $totalW = $presw - $prevw;
+  
+ 
+  $Consuption = $totalE+$totalW;
+  $ppu = $inprice / $Consuption;
+  $priceE = $totalE*$ppu;
+  $priceW = $totalW*$ppu;
       
  
   $inprice = $row["inprice"];
@@ -29,6 +37,7 @@ while($row = mysqli_fetch_array($result)) {
   $rw = mysqli_fetch_array($res);
   $name_ocp = $rw['name_ocp'];
   $last_ocp =$rw['last_ocp'];
+
 }
 echo "</table>";
 //5. close connection
@@ -50,7 +59,7 @@ mysqli_close($connect);
   </tr>
   <tr><td>ชื่อ : <?php echo $name_ocp.'&nbsp;' .$last_ocp;?></td><td>&nbsp;&nbsp;ห้อง : <?php echo $id_room; ?></tr>
   <tr>
-  <td>ค่าน้ำ : <?php echo $totalE * $price; ?></td>&nbsp;<td>&nbsp;&nbsp;ค่าไฟ : <?php echo $totalW * $price; ?></td>
+  <td>ค่าน้ำ : <?php echo $priceE; ?></td>&nbsp;<td>&nbsp;&nbsp;ค่าไฟ : <?php echo $priceW; ?></td>
   </tr>
   <td><strong><u>รวมทั้งสิ้น :  <?php echo $inprice; ?> </u></strong></td>
 
@@ -69,7 +78,7 @@ mysqli_close($connect);
   <table width="460" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
         <input type="hidden"  class="form-control mb-2" name="id" value="<?php echo $id; ?>" />
-        <input type="hidden"  class="form-control mb-2" name="totalprice" value="<?php echo $totalprice; ?>" />
+        <input type="hidden"  class="form-control mb-2" name="inprice" value="<?php echo $inprice; ?>" />
         <input type="hidden"  class="form-control mb-2" name="userid" value="<?php echo $userid; ?>" />
       <td height="40" colspan="2" align="center" bgcolor="#D6D6D6">File Browser</td>
     </tr>
@@ -105,3 +114,4 @@ mysqli_close($connect);
 </div>
 </body>
 </html>
+
