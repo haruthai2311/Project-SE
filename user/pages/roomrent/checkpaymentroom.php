@@ -1,6 +1,6 @@
 <?php include('../../../config.php');
 $userid = $_SESSION['USER']['userid'];
- $sql = "SELECT * FROM `invoicesroomrent` WHERE userid = '$userid' AND status_r != 'ค้างชำระ' ";
+ $sql = "SELECT * FROM `invoicesroomrent` INNER JOIN paymentroom ON invoicesroomrent.pmrno = paymentroom.pmrno WHERE invoicesroomrent.userid = '$userid' ";
  $result = $connect->query($sql);
  $num=mysqli_num_rows($result); 
 ?>
@@ -206,6 +206,11 @@ $userid = $_SESSION['USER']['userid'];
                           <th style='text-align:center'>
                             เลขที่บิล
                           </th>
+
+                          <th style='text-align:center'>
+                            วันที่ชำระ
+                          </th>
+                          
                           <th style='text-align:center'>
                             ภาคการศึกษา
                           </th>
@@ -223,6 +228,9 @@ $userid = $_SESSION['USER']['userid'];
                         <tr>
                           <td style='text-align:center' >
                           <?php echo $row['id_inroom']; ?>
+                          </td>
+                          <td style='text-align:center'>
+                          <?php echo $row['pmrdate']; ?>
                           </td>
                           <td style='text-align:center'>
                           <?php echo $row['semester']; ?>

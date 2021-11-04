@@ -1,7 +1,8 @@
 <?php include('../../../config.php');
- $userid = $_SESSION['USER']['userid'];
- $sql = "SELECT * FROM invoices WHERE userid = '$userid' AND status != 'ค้างชำระ' ";
+$userid = $_SESSION['USER']['userid'];
+ $sql = "SELECT * FROM `invoices` INNER JOIN payment ON invoices.pmno = payment.pmno WHERE invoices.userid = '$userid' ";
  $result = $connect->query($sql);
+ $num=mysqli_num_rows($result); 
 ?>
 
 
@@ -189,70 +190,55 @@
          
           <div class='table-responsive'>
             <div class="card-body">
-              <h1><center><b> status </b></center></h1>
+              <h1><center><b> overdue items </b></center></h1>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
                 </div>
+                <?php if($num==0)   		
+                { ?>
+                <center><b><label><strong><i>ไม่พบข้อมูลการชำระ</i></strong></label></b><center>
+                <?php }else{ ?> 
                 <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>
+                          <th style='text-align:center'>
                             เลขที่บิล
                           </th>
-                          <th>
-                            วันที่
+                          <th style='text-align:center'>
+                            วันที่ชำระ
                           </th>
-                          <th>
-                            จำนวนไฟฟ้าที่ใช้ (บาท)
-                          </th>
-                          <th>
-                            จำนวนน้ำประปาที่ใช้ (บาท)
-                          </th>
-                          <th>รวมทั้งสิ้น (บาท)</th>
-                          <th>
-                            สถานะ
-                          </th>
+                          <th style='text-align:center'>รวมทั้งสิ้น (บาท)</th>
+                          <th style='text-align:center'>สถานะการชำระ</th>
+                          <th></th>
                         </tr>
                       </thead>
                       
                       <?php while($row = $result->fetch_assoc()):
-                        $preve = $row['preve'];
-                        $prese = $row['prese'];
-                        $prevw = $row['prevw'];
-                        $presw = $row['presw'];
-                        $price = $row['inprice'];
-                        $totalE = $prese - $preve;
-                        $totalW = $presw - $prevw;
-	
-
-                      $Consuption = $totalE+$totalW;  
-                      $ppu = $price / $Consuption;  
-	                    $priceE =  $totalE * $ppu;
-	                    $priceW = $totalW * $ppu;
+                        
 
                       ?>
                       <tbody>
                         <tr>
-                          <td >
+                          <td style='text-align:center' >
                           <?php echo $row['id_in']; ?>
                           </td>
-                          <td>
-                          <?php echo $row['rcdate']; ?>
+                          <td style='text-align:center'>
+                          <?php echo $row['pm_date']; ?>
                           </td>
-                          <td>
-                            <?php echo $priceE; ?>
-                          </td>               
-                          <td><?php echo $priceW; ?></td>
-                          <td>
-                            <?php echo $row['inprice']; ?>
+                          <td style='text-align:center'>
+                            <?php echo $row['pmtotal']; ?>
                           </td>
-                          <td>
-                            <?php echo $row['status']; ?>
-                          </td>
-                          <td> 
-                          <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>บิล </a> </td>
+
+                          <td style='text-align:center'><?php if($row['status']==('ชำระเสร็จสิ้น')){ ?>
+                            <label style='color: green'><I>ชำระเสร็จสิ้น</I></label><?php } 
+                            else{ ?>
+                             <label style='color: red '><I>กำลังดำเนินการ</I></label> <?php } ?>
+                            </td>
+
+                          <td style='text-align:center'>                         
+                          <a type="button" class="btn btn-warning  btn-sm" href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>&nbsp;บิล&nbsp;</a> </td>
                           </td>
                         </tr>
                         
@@ -260,6 +246,8 @@
                       </tbody>
                     </table>
                   </div>
+                  <?php   }	  ?>
+               
 
 
 
@@ -277,7 +265,7 @@
                   < ?php echo "</tr>";
                 }
                 echo "</table>";
-                ?>
+                ? -->
              
                 
               </div>
@@ -311,16 +299,16 @@
 
 <!-- Modal -->
 <!--################################################ Add Bill ############################################################ -->
-<div class="modal fade" id="billmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade " id="paymmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">bill</h5>
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดการชำระค่าห้องพัก</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="detail">
+      <div class="modal-body" id="paym">
      
       </div>
     </div>
@@ -337,7 +325,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="detailbill">
+      <div class="modal-body" id="">
         
     </div>
   </div>
@@ -383,15 +371,15 @@ $(document).ready(function(e) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-  $('.billbt').click(function(){
-    var rid=$(this).attr("data-id");
+  $('.paybt').click(function(){
+    var id=$(this).attr("data-id");
     $.ajax({
-      url:"select.php",
+      url:"addslip.php",
       method: "post",
-      data:{id:rid},
+      data:{id:id},
       success:function(data){
-        $('#detail').html(data);
-        $('#billmodal').modal('show');
+        $('#paym').html(data);
+        $('#paymmodal').modal('show');
       }
 
     });
@@ -401,7 +389,7 @@ $(document).ready(function(){
   $('.detailbt').click(function(){
     var rid=$(this).attr("data-id");
     $.ajax({
-      url:"detail.php",
+      url:"detailroom.php",
       method: "post",
       data:{id:rid},
       success:function(data){
@@ -416,4 +404,4 @@ $(document).ready(function(){
 </script>
 </body>
 
-</html>s
+</html>

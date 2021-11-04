@@ -2,6 +2,7 @@
 $userid = $_SESSION['USER']['userid'];
  $sql = "SELECT * FROM invoices WHERE userid = '$userid' AND status= 'ค้างชำระ' ";
  $result = $connect->query($sql);
+ $num=mysqli_num_rows($result); 
 ?>
 
 
@@ -194,6 +195,10 @@ $userid = $_SESSION['USER']['userid'];
                 <div class="panel-heading">
                   <div class="panel-title"><h5></h5></div>
                 </div>
+                <?php if($num==0)   		
+                { ?>
+                <center><b><label><strong><i>คุณไม่มีบิลที่ค้างชำระ</i></strong></label></b><center>
+                <?php }else{ ?> 
                 <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
@@ -249,7 +254,7 @@ $userid = $_SESSION['USER']['userid'];
                             <?php echo $row['inprice']; ?>
                           </td>
                           <td style='text-align:center'> 
-                          <?php echo "<td><button type='button' data-id='".$row['id_room']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|"; ?>
+                          <?php echo "<td><button type='button' data-id='".$row['id_in']."' class='btn btn-success btn-sm billbt'>ชำระ</button>|"; ?>
                           <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_in']; ?>'>บิล </a> </td>
                           </td>
                         </tr>
@@ -258,6 +263,8 @@ $userid = $_SESSION['USER']['userid'];
                       </tbody>
                     </table>
                   </div>
+                  <?php   }	  ?>
+                  
 
 
 
@@ -275,7 +282,7 @@ $userid = $_SESSION['USER']['userid'];
                   < ?php echo "</tr>";
                 }
                 echo "</table>";
-                ?>
+                ? -->
              
                 
               </div>
