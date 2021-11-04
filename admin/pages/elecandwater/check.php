@@ -6,7 +6,7 @@ $id = $_POST["id"];
 $conn = mysqli_connect('localhost', 'root', '','datahome') or die("Error: " . mysqli_error($conn));
 $result = mysqli_query($conn,"SELECT * FROM ((payment
 INNER JOIN invoices ON payment.pmno = invoices.pmno)
-INNER JOIN occupant ON payment.id_ocp = occupant.id_ocp)
+INNER JOIN occupant ON payment.userid = occupant.userid)
 WHERE payment.pmno = '$id'");
 
 $test = mysqli_fetch_array($result);

@@ -232,8 +232,9 @@ $userid = $_SESSION['USER']['userid'];
                           </td>
                           
                           <td style='text-align:center'> 
-                          <?php echo "<td><button type='button' data-id='".$row['id_inroom']."' class='btn btn-success btn-sm paybt'>ชำระ</button>|"; ?>
-                          <a type="button" class="btn btn-warning  btn-sm" rel='facebox' href='viewpayment.php?idin=<?php echo $row['id_inroom']; ?>'>บิล </a> </td>
+                          <?php echo "<td><button type='button' data-id='".$row['id_inroom']."' class='btn btn-success btn-sm paybt'>ชำระ</button> |"; ?>
+                         
+                          <a type="button" class="btn btn-warning  btn-sm" href='viewpaymentroom.php?id=<?php echo $row['id_inroom']; ?>'>&nbsp;บิล&nbsp;</a> </td>
                           </td>
                         </tr>
                         
@@ -384,7 +385,7 @@ $(document).ready(function(){
   $('.detailbt').click(function(){
     var rid=$(this).attr("data-id");
     $.ajax({
-      url:"detail.php",
+      url:"detailroom.php",
       method: "post",
       data:{id:rid},
       success:function(data){
