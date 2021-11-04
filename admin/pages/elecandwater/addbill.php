@@ -12,9 +12,11 @@ $price = $_POST['price'];
 $pricetotal = ($totalE+$totalW) * $price;
 $date=$_POST['date'] ;
 
+$res = mysqli_query($conn,"SELECT * FROM occupant WHERE id_room = '$id_room'");
+$row = mysqli_fetch_array($res);
+$userid = $row['userid'];
 
-
-$insert = "INSERT INTO invoices (id_room,rcdate,preve,prese,prevw,presw,inprice,pmno,status) VALUES ('$id_room','$date','$preve','$prese','$prevw','$presw','$pricetotal','0','overdue')"; 
+$insert = "INSERT INTO invoices (userid,id_room,rcdate,preve,prese,prevw,presw,inprice,pmno,status) VALUES ('$userid','$id_room','$date','$preve','$prese','$prevw','$presw','$pricetotal','0','ค้างชำระ')"; 
 $resule = mysqli_query($conn,$insert);
 if($resule){
 	$up = "UPDATE tempo_bill SET prevw = '$presw', preve= '$prese' WHERE id_room = '$id_room'";

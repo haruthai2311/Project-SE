@@ -220,8 +220,9 @@
 
                 while($row = mysqli_fetch_array($result))
                 {
+
                   echo "<tr>";
-                  echo "<td>" . $row['id_room'] . "</td>";
+                  echo "<td >" . $row['id_room'] . "</td>";
                   echo "<td>" . $row['name_ocp'] . "&nbsp;" . $row['last_ocp'] . "</td>";
                   echo "<td>" . $row['id_mte'] . "</td>";
                   echo "<td>" . $row['id_mtw'] . "</td>";

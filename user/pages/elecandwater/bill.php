@@ -1,6 +1,6 @@
 <?php include('../../../config.php');
 $userid = $_SESSION['USER']['userid'];
- $sql = "SELECT * FROM invoices WHERE userid = '$userid' AND status= 'ค้างชำระ' ";
+ $sql = "SELECT * FROM invoices WHERE userid = '$userid' AND status = 'ค้างชำระ' ";
  $result = $connect->query($sql);
  $num=mysqli_num_rows($result); 
 ?>
@@ -239,6 +239,7 @@ $userid = $_SESSION['USER']['userid'];
                       ?>
                       <tbody>
                         <tr>
+                        
                           <td style='text-align:center' >
                           <?php echo $row['id_in']; ?>
                           </td>

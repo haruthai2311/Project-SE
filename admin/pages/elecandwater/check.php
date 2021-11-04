@@ -81,10 +81,12 @@ echo $date;?></p -->
   <tr>
   <td>หลักฐานการชำระ :</td>
   </tr>
-  <tr>
-  <td><?php echo $slip; ?> </td>
-  </tr>
+  
 </table>
+</table>
+  <center><tr>
+  <td ><img src='../../../user/pages/elecandwater/fileupload/<?php echo $slip; ?>'  width='400'></td>
+  </tr></center>
 
 <div class="text-right">
     <button type="submit" class="btn btn-primary">การชำระถูกต้อง</button>
