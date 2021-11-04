@@ -235,8 +235,7 @@
                             <!--a href="allinfo.php?idocp=< php echo $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-success btn-sm"><span class="" aria-hidden=""></span>details</! 
                             <a href="editoccupant.php?idocp=< ?php echo  $row["id_ocp"];?>" title="Ganti Password" data-placement="bottom" data-toggle="tooltip" class="btn btn-warning btn-sm"><span class="" aria-hidden=""></span>&nbsp;&nbsp;edit&nbsp;&nbsp;</a>-->
                             <button type="button"  data-id="<?php echo $row['id_ocp'];?>"  class="btn btn-warning btn-sm editbt">&nbsp;&nbsp;edit&nbsp;&nbsp;</button>
-                            <a href="deleteocp.php?idocp=<?php echo $row["id_ocp"];?>" title="Hapus Data" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')"
-                          class="btn btn-danger btn-sm"><span class="" aria-hidden="">delete</span></a>
+                            
                           </td>
                         </tr>
                         <?php endwhile ?>  
